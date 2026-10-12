@@ -1,0 +1,9 @@
+tmp/
+output/
+*.pdf
+# Keep only the customer-requested claim forms in the private workroom repo.
+!assets/claim-documents/
+!assets/claim-documents/*.pdf
+*.jpg
+*.jpeg
+worker/node_modules/
