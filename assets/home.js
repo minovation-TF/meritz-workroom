@@ -3,7 +3,7 @@
 
   const toast = document.getElementById('preview-message');
   let toastTimer;
-  let lastModalTrigger;
+  const modalTriggers = new WeakMap();
   let copyTimer;
 
   function showPreview(message) {
@@ -13,28 +13,26 @@
     toastTimer = setTimeout(() => { toast.hidden = true; }, 4200);
   }
 
-  document.querySelectorAll('[data-preview]').forEach((button) => {
-    button.addEventListener('click', () => {
-      showPreview(`${button.dataset.preview} 기능은 준비 중입니다.`);
-    });
-  });
-
   document.querySelectorAll('[data-modal-open]').forEach((button) => {
     button.addEventListener('click', () => {
       const dialog = document.getElementById(button.dataset.modalOpen);
       if (!dialog || typeof dialog.showModal !== 'function') return;
-      lastModalTrigger = button;
+      modalTriggers.set(dialog, button);
       dialog.showModal();
+      dialog.scrollTop = 0;
     });
   });
 
   document.querySelectorAll('dialog').forEach((dialog) => {
-    dialog.querySelector('[data-modal-close]')?.addEventListener('click', () => dialog.close());
+    dialog.querySelectorAll('[data-modal-close]').forEach((button) => {
+      button.addEventListener('click', () => dialog.close());
+    });
     dialog.addEventListener('click', (event) => {
       if (event.target === dialog) dialog.close();
     });
     dialog.addEventListener('close', () => {
-      if (lastModalTrigger?.isConnected) lastModalTrigger.focus();
+      const trigger = modalTriggers.get(dialog);
+      if (trigger?.isConnected) trigger.focus({ preventScroll: true });
     });
   });
 

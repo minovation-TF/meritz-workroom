@@ -81,12 +81,12 @@
               명함 만들기 <svg class="icon" aria-hidden="true"><use href="#icon-arrow"/></svg>
             </a>
           </div>
-          <div class="card-preview" aria-label="흰색과 검정색 명함 디자인 예시" role="img">
-            <div class="business-card card-back"><span>YOUR<br>NAME.</span><span class="card-back-caption">A SIMPLE INTRODUCTION</span></div>
+          <div class="card-preview" aria-label="김미노의 메리츠 명함 앞면과 뒷면 예시" role="img">
+            <div class="business-card card-back"><img src="assets/meritz-ci.png" alt=""></div>
             <div class="business-card card-front">
-              <span class="card-brand">YOUR NAME<span>®</span></span>
-              <div class="card-person"><strong>홍길동</strong><span>금융 컨설턴트</span></div>
-              <div class="card-bottom"><span>010. 0000. 0000</span><span class="card-monogram">H.</span></div>
+              <span class="card-brand">메리츠화재</span>
+              <div class="card-person"><strong>김미노</strong><span>금융 컨설턴트</span></div>
+              <div class="card-bottom"><span>010. 0000. 0000</span><img class="card-ci" src="assets/meritz-ci.png" alt=""></div>
             </div>
           </div>
         </div>
@@ -103,10 +103,10 @@
           <button class="tool" type="button" data-modal-open="customer-modal"><svg aria-hidden="true"><use href="#icon-phone"/></svg><span>고객센터</span></button>
           <button class="tool" type="button" data-modal-open="service-modal"><svg aria-hidden="true"><use href="#icon-service"/></svg><span>서비스 신청</span></button>
           <button class="tool" type="button" data-modal-open="claim-modal"><svg aria-hidden="true"><use href="#icon-insurance"/></svg><span>보험금 청구</span></button>
-          <button class="tool" type="button" data-preview="이미지 변환"><svg aria-hidden="true"><use href="#icon-image"/></svg><span>이미지 변환</span></button>
-          <button class="tool" type="button" data-preview="파일 압축"><svg aria-hidden="true"><use href="#icon-compress"/></svg><span>파일 압축</span></button>
-          <button class="tool" type="button" data-preview="페이지 정리"><svg aria-hidden="true"><use href="#icon-pages"/></svg><span>페이지 정리</span></button>
-          <button class="tool" type="button" data-preview="QR 코드"><svg aria-hidden="true"><use href="#icon-qr"/></svg><span>QR 코드</span></button>
+          <button class="tool tool-pending" type="button" disabled><svg aria-hidden="true"><use href="#icon-image"/></svg><span>준비중</span></button>
+          <button class="tool tool-pending" type="button" disabled><svg aria-hidden="true"><use href="#icon-compress"/></svg><span>준비중</span></button>
+          <button class="tool tool-pending" type="button" disabled><svg aria-hidden="true"><use href="#icon-pages"/></svg><span>준비중</span></button>
+          <button class="tool tool-pending" type="button" disabled><svg aria-hidden="true"><use href="#icon-qr"/></svg><span>준비중</span></button>
         </div>
       </section>
     </div>
@@ -116,7 +116,11 @@
     <div class="modal-header"><div><p class="modal-eyebrow">MERITZ FIRE</p><h2 id="customer-title">고객센터</h2></div><button class="modal-close" type="button" data-modal-close aria-label="팝업 닫기"><svg class="icon" aria-hidden="true"><use href="#icon-close"/></svg></button></div>
     <div class="modal-feedback" role="status" aria-live="polite" hidden></div>
     <div class="modal-body">
-      <div class="customer-primary"><div><span class="modal-label">고객센터 단축번호</span><a class="primary-phone" href="tel:15667711">1566-7711</a></div><div class="inline-actions"><a class="text-action" href="https://www.meritzfire.com/footer/ARS.do#!/" target="_blank" rel="noopener noreferrer">ARS 안내 <span aria-hidden="true">↗</span></a></div></div>
+      <div class="customer-primary"><div><span class="modal-label">고객센터 단축번호</span><a class="primary-phone" href="tel:15667711">1566-7711</a></div><div class="inline-actions"><a class="text-action" href="https://www.meritzfire.com/footer/ARS.do#!/" target="_blank" rel="noopener noreferrer">공식 안내 <span aria-hidden="true">↗</span></a></div></div>
+      <div class="ars-options" aria-label="ARS 안내">
+        <button class="ars-option" type="button" data-modal-open="voice-ars-modal" aria-haspopup="dialog"><span class="modal-eyebrow">VOICE ARS</span><strong>음성 ARS</strong><span class="ars-option-description">번호별 메뉴와 상담사 연결 안내</span><svg class="icon" aria-hidden="true"><use href="#icon-arrow"/></svg></button>
+        <button class="ars-option" type="button" data-modal-open="digital-ars-modal" aria-haspopup="dialog"><span class="modal-eyebrow">DIGITAL ARS</span><strong>디지털 ARS</strong><span class="ars-option-description">화면 메뉴와 서비스 안내</span><svg class="icon" aria-hidden="true"><use href="#icon-arrow"/></svg></button>
+      </div>
       <p class="modal-section-title">자주 찾는 연락처</p>
       <div class="contact-list">
         <div class="contact-row"><span>해외 거주자</span><a href="tel:+82261120300">82-2-6112-0300</a><button class="icon-copy" type="button" data-copy="82-2-6112-0300" aria-label="해외 거주자 번호 복사"><svg class="icon"><use href="#icon-copy"/></svg></button></div>
@@ -126,6 +130,55 @@
         <div class="contact-row"><span>상조 서비스</span><a href="tel:16880090">1688-0090</a><button class="icon-copy" type="button" data-copy="1688-0090" aria-label="상조 서비스 번호 복사"><svg class="icon"><use href="#icon-copy"/></svg></button></div>
         <div class="contact-row"><span>인콜 모니터링</span><a href="tel:15777711">1577-7711</a><a class="row-link" href="https://www.meritzfire.com/customer-center/complete-sales-monitoring.do" target="_blank" rel="noopener noreferrer">안내 <span aria-hidden="true">↗</span></a><button class="icon-copy" type="button" data-copy="https://www.meritzfire.com/customer-center/complete-sales-monitoring.do" aria-label="인콜 모니터링 안내 주소 복사"><svg class="icon"><use href="#icon-copy"/></svg></button></div>
       </div>
+    </div>
+  </dialog>
+
+  <dialog class="modal ars-modal voice-ars" id="voice-ars-modal" aria-labelledby="voice-ars-title">
+    <div class="modal-header"><div><p class="modal-eyebrow">MERITZ FIRE · ARS GUIDE</p><h2 id="voice-ars-title" tabindex="-1" autofocus>음성 ARS</h2></div><button class="modal-close" type="button" data-modal-close aria-label="고객센터로 돌아가기"><svg class="icon" aria-hidden="true"><use href="#icon-close"/></svg></button></div>
+    <div class="modal-body">
+      <div class="ars-context"><a href="tel:15667711">1566-7711</a><span>메리츠화재 고객센터</span></div>
+      <p class="modal-intro">번호별 메뉴를 눌러 하위 안내를 확인하세요.</p>
+      <div class="ars-menu" aria-label="음성 ARS 번호별 메뉴">
+        <div class="ars-menu-item ars-menu-row" data-ars-key="1"><span class="ars-key">1</span><span class="ars-menu-title">자동차 사고접수</span></div>
+        <div class="ars-menu-item ars-menu-row" data-ars-key="2"><span class="ars-key">2</span><span class="ars-menu-title">자동차고장 긴급출동</span></div>
+        <details class="ars-menu-item" data-ars-key="3"><summary><span class="ars-key">3</span><span class="ars-menu-title">보험료 납입 및 납입 방법 변경</span></summary><ul class="ars-submenu"><li><span class="ars-subkey">1</span><div>모바일을 통한 보험료납입, 계좌/카드 변경</div></li><li><span class="ars-subkey">2</span><div>보험료납입</div></li><li><span class="ars-subkey">3</span><div>보험료 납입 방법 변경</div></li></ul></details>
+        <details class="ars-menu-item" data-ars-key="4"><summary><span class="ars-key">4</span><span class="ars-menu-title">계약조회, 변경, 해지</span></summary><ul class="ars-submenu"><li><span class="ars-subkey">1</span><div>자동차보험 계약조회, 변경, 해지</div></li><li><span class="ars-subkey">2</span><div>질병,상해,운전자보험 해지 및 환급금 문의</div></li><li><span class="ars-subkey">3</span><div>질병,상해,운전자보험 계약조회, 변경 문의</div></li></ul></details>
+        <details class="ars-menu-item" data-ars-key="5"><summary><span class="ars-key">5</span><span class="ars-menu-title">보험금 신청방법 및 서류안내</span></summary><ul class="ars-submenu"><li><span class="ars-subkey">1</span><div>모바일을 통한 보험금 청구, 진행결과조회, 보상담당자 확인</div></li><li><span class="ars-subkey">2</span><div>보험금 청구방법 및 제출서류 문의</div></li><li><span class="ars-subkey">3</span><div>보험금신청서 양식 팩스 발송</div></li><li><span class="ars-subkey">4</span><div>팩스 발송 후 서류 도착여부 확인</div></li><li><span class="ars-subkey">5</span><div>백내장 수술 보험금 청구 문의</div></li><li><span class="ars-subkey">6</span><div>연말정산용 실손의료비 지급내역서 팩스 발송</div></li><li><span class="ars-subkey">0</span><div>기타 보험금청구 관련 문의 상담사 연결</div></li></ul></details>
+        <details class="ars-menu-item" data-ars-key="6"><summary><span class="ars-key">6</span><span class="ars-menu-title">보험계약대출</span></summary><ul class="ars-submenu"><li><span class="ars-subkey">1</span><div>모바일을 통한 보험계약대출 신청 및 상환</div></li><li><span class="ars-subkey">2</span><div>보험계약대출 가능액 조회</div></li><li><span class="ars-subkey">3</span><div>보험계약대출 신청</div></li><li><span class="ars-subkey">4</span><div>보험계약대출 상환</div></li><li><span class="ars-subkey">0</span><div>기타 대출관련 문의</div></li></ul></details>
+        <details class="ars-menu-item" data-ars-key="7"><summary><span class="ars-key">7</span><span class="ars-menu-title">보험증권 및 증명서 발급</span></summary><ul class="ars-submenu"><li><span class="ars-subkey">1</span><div>모바일을 통한 보험증권 및 증명서 발급</div></li><li><span class="ars-subkey">2</span><div>질병/상해 보험증권</div></li><li><span class="ars-subkey">3</span><div>해지 영수증</div></li><li><span class="ars-subkey">4</span><div>보험료 납입내역서</div></li><li><span class="ars-subkey">5</span><div>보험료 지급내역서</div></li><li><span class="ars-subkey">6</span><div>자동차보험 증권 및 가입증명서</div></li><li><span class="ars-subkey">7</span><div>소득공제용 납입증명서 팩스 발송</div></li><li><span class="ars-subkey">8</span><div>연말정산용 실손의료비 지급내역서 팩스 발송</div></li><li><span class="ars-subkey">0</span><div>기타증명서 발급</div></li></ul></details>
+        <details class="ars-menu-item" data-ars-key="8"><summary><span class="ars-key">8</span><span class="ars-menu-title">새로운 보험가입 문의 및 ARS 이용요금</span></summary><ul class="ars-submenu"><li><span class="ars-subkey">1</span><div>건강, 암, 운전자, 어린이, 의료실비 보험, 신규가입 상담</div></li><li><span class="ars-subkey">2</span><div>자동차보험 가입 문의</div></li><li><span class="ars-subkey">3</span><div>ARS 이용요금 안내</div></li><li><span class="ars-subkey">0</span><div>상담사 연결</div></li></ul></details>
+        <details class="ars-menu-item" data-ars-key="0"><summary><span class="ars-key">0</span><span class="ars-menu-title">상담사 연결</span></summary><ul class="ars-submenu"><li><span class="ars-subkey">1</span><div>자동차 사고접수</div></li><li><span class="ars-subkey">2</span><div>질병 및 상해보험 사고접수<ul class="ars-submenu"><li><span class="ars-subkey">1</span><div>보험금 청구방법 및 제출서류 문의</div></li><li><span class="ars-subkey">2</span><div>보험금 신청을 위한 구비서류 문자안내</div></li><li><span class="ars-subkey">3</span><div>팩스 발송 후 서류 도착여부 확인</div></li></ul></div></li><li><span class="ars-subkey">3</span><div>보험료 납입, 계약조회, 변경 및 해지<ul class="ars-submenu"><li><span class="ars-subkey">1</span><div>자동차보험 계약조회, 변경, 해지</div></li><li><span class="ars-subkey">2</span><div>보험료 납입</div></li><li><span class="ars-subkey">3</span><div>보험료 납입방법 변경</div></li><li><span class="ars-subkey">4</span><div>보험 해지 및 환급금 문의</div></li><li><span class="ars-subkey">5</span><div>계약조회, 변경 문의</div></li></ul></div></li></ul></details>
+      </div>
+      <button class="ars-back" type="button" data-modal-close>← 고객센터로 돌아가기</button>
+    </div>
+  </dialog>
+
+  <dialog class="modal ars-modal digital-ars" id="digital-ars-modal" aria-labelledby="digital-ars-title">
+    <div class="modal-header"><div><p class="modal-eyebrow">MERITZ FIRE · ARS GUIDE</p><h2 id="digital-ars-title" tabindex="-1" autofocus>디지털 ARS</h2></div><button class="modal-close" type="button" data-modal-close aria-label="고객센터로 돌아가기"><svg class="icon" aria-hidden="true"><use href="#icon-close"/></svg></button></div>
+    <div class="modal-body">
+      <div class="ars-context"><a href="tel:15667711">1566-7711</a><span>메리츠화재 고객센터</span></div>
+      <p class="modal-intro">화면 메뉴를 눌러 이용할 수 있는 서비스를 확인하세요.</p>
+      <details class="ars-screen"><summary>디지털 ARS 화면 보기</summary><img src="assets/ars/digital-ars.png" width="762" height="1536" loading="lazy" alt="메리츠화재 디지털 ARS 화면 예시. 사고접수, 고장출동과 계약조회 등 서비스 메뉴가 표시되어 있습니다."></details>
+      <div class="ars-menu" aria-label="디지털 ARS 화면 메뉴">
+        <div class="ars-menu-item ars-menu-row" data-ars-key="1"><span class="ars-key">1</span><span class="ars-menu-title">자동차 사고접수</span></div>
+        <div class="ars-menu-item ars-menu-row" data-ars-key="2"><span class="ars-key">2</span><span class="ars-menu-title">자동차 고장출동</span></div>
+        <div class="ars-menu-item ars-menu-row" data-ars-key="3"><span class="ars-key">3</span><span class="ars-menu-title">계약조회</span></div>
+        <details class="ars-menu-item" data-ars-key="4"><summary><span class="ars-key">4</span><span class="ars-menu-title">보험금 청구</span></summary><ul class="ars-submenu"><li><div>보험금 청구</div></li><li><div>보험금 청구 현황</div></li><li><div>필요서류 안내</div></li><li><div>간병인 지원 서비스 신청</div></li><li><div>단체보험 보험금 청구</div></li></ul></details>
+        <details class="ars-menu-item" data-ars-key="5"><summary><span class="ars-key">5</span><span class="ars-menu-title">보험료 납입</span></summary><ul class="ars-submenu"><li><div>보험료 납입/가상계좌 발급</div></li><li><div>실효계약 부활 신청</div></li></ul></details>
+        <details class="ars-menu-item" data-ars-key="6"><summary><span class="ars-key">6</span><span class="ars-menu-title">담당자 찾기/정보 변경</span></summary><ul class="ars-submenu"><li><div>마이페이지</div></li><li><div>내정보변경(주소/연락처)</div></li><li><div>내보험 담당자</div></li><li><div>질병/상해 보상담당자</div></li><li><div>자동차보험 보상담당자</div></li><li><div>알림현황(카카오톡/문자/우편/이메일)</div></li><li><div>고객명 변경</div></li></ul></details>
+        <details class="ars-menu-item" data-ars-key="7"><summary><span class="ars-key">7</span><span class="ars-menu-title">환급금 신청</span></summary><ul class="ars-submenu"><li><div>계약해지 신청</div></li><li><div>만기환급금 신청</div></li><li><div>휴면보험금 신청</div></li><li><div>중도인출</div></li><li><div>만기환급금/연금수령 계좌 등록</div></li></ul></details>
+        <details class="ars-menu-item" data-ars-key="8"><summary><span class="ars-key">8</span><span class="ars-menu-title">자동이체/카드변경</span></summary><ul class="ars-submenu"><li><div>자동이체 등록/변경/해지</div></li><li><div>카드 변경/해지</div></li></ul></details>
+        <details class="ars-menu-item" data-ars-key="9"><summary><span class="ars-key">9</span><span class="ars-menu-title">보험계약대출</span></summary><ul class="ars-submenu"><li><div>보험계약대출 신청</div></li><li><div>대출 이자납입/상환/변경</div></li></ul></details>
+        <details class="ars-menu-item" data-ars-key="10"><summary><span class="ars-key">10</span><span class="ars-menu-title">증명서발급</span></summary><ul class="ars-submenu"><li><div>보험증권, 납입내역서 등 발급</div></li></ul></details>
+        <details class="ars-menu-item" data-ars-key="11"><summary><span class="ars-key">11</span><span class="ars-menu-title">임시운전특약</span></summary><ul class="ars-submenu"><li><div>임시운전자 특약 가입/조회/취소(미리가입/실시간)</div></li></ul></details>
+      </div>
+      <h3 class="ars-section-label">로그인하지 않아도 이용할 수 있어요</h3>
+      <div class="ars-menu" aria-label="로그인 없이 이용 가능한 메뉴">
+        <div class="ars-menu-item ars-menu-row" data-ars-key="12"><span class="ars-key">12</span><span class="ars-menu-title">보상 필요서류 안내</span></div>
+        <div class="ars-menu-item ars-menu-row" data-ars-key="13"><span class="ars-key">13</span><span class="ars-menu-title">계약 해지/변경 서류 안내</span></div>
+        <div class="ars-menu-item ars-menu-row" data-ars-key="14"><span class="ars-key">14</span><span class="ars-menu-title">신규 보험 가입 문의</span></div>
+      </div>
+      <button class="ars-back" type="button" data-modal-close>← 고객센터로 돌아가기</button>
     </div>
   </dialog>
 
