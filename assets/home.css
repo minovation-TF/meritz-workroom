@@ -56,7 +56,7 @@ h1, .business-copy h2, .tools-heading h2 { font-size: var(--title-size); line-he
 .document-plus { position: absolute; right: 0; bottom: 4px; display: grid; place-items: center; width: 22px; height: 22px; border: 1px solid #dedede; border-radius: 50%; background: #fff; font-size: 17px; font-weight: 300; }
 .dropzone-title { font-size: 16px; font-weight: 550; letter-spacing: -.3px; }
 .dropzone-description { margin-top: 9px; color: var(--muted); font-size: 12px; letter-spacing: -.25px; }
-.button { display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 41px; border-radius: 3px; font-size: 13px; font-weight: 550; letter-spacing: -.2px; }
+.button { display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 41px; border-radius: 3px; font-size: 13px; font-weight: 550; letter-spacing: -.2px; text-decoration: none; }
 .icon { width: 17px; height: 17px; }
 .button-dark { padding: 0 22px; margin-top: 23px; border: 1px solid var(--ink); background: var(--ink); color: #fff; transition: background-color .16s, border-color .16s; }
 .button-dark:hover, .button-dark:focus-visible { background: var(--accent-strong); border-color: var(--accent-strong); }
@@ -68,7 +68,7 @@ h1, .business-copy h2, .tools-heading h2 { font-size: var(--title-size); line-he
 .business-content { flex: 1; display: grid; grid-template-columns: minmax(0, .94fr) minmax(0, 1.06fr); gap: 18px; align-items: center; margin-top: 18px; }
 .business-copy h2 { white-space: nowrap; }
 .business-copy .section-description { margin-top: 12px; font-size: 12px; }
-.button-link { margin-top: 19px; min-height: 32px; padding: 0 0 5px; border: 0; border-bottom: 1px solid #292929; border-radius: 0; background: transparent; gap: 24px; transition: color .16s, border-color .16s; }
+.button-link { margin-top: 19px; min-height: 32px; padding: 0 0 5px; border: 0; border-bottom: 1px solid #292929; border-radius: 0; background: transparent; color: var(--ink); gap: 24px; transition: color .16s, border-color .16s; }
 .button-link .icon { width: 20px; transition: transform .16s; }
 .button-link:hover, .button-link:focus-visible { color: var(--accent-strong); border-color: var(--accent-strong); }
 .button-link:is(:hover, :focus-visible) .icon { transform: translateX(3px); }

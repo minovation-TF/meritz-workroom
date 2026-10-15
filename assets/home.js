@@ -1,12 +1,8 @@
 (() => {
   'use strict';
 
-  const dropzone = document.getElementById('pdf-dropzone');
-  const fileInput = document.getElementById('pdf-file');
-  const fileStatus = document.getElementById('file-status');
   const toast = document.getElementById('preview-message');
   let toastTimer;
-  let dragDepth = 0;
   let lastModalTrigger;
   let copyTimer;
 
@@ -16,47 +12,6 @@
     toast.hidden = false;
     toastTimer = setTimeout(() => { toast.hidden = true; }, 4200);
   }
-
-  function previewFile(file) {
-    if (!file) return;
-    if (!/\.pdf$/i.test(file.name)) {
-      fileStatus.textContent = 'PDF 파일을 선택해주세요.';
-      return;
-    }
-    // This shell only displays a filename; it never reads, sends, or opens the file.
-    fileStatus.textContent = `${file.name} · 편집기 연결 준비 중`;
-    showPreview('파일 선택 미리보기입니다. PDF 편집기는 다음 단계에서 연결됩니다.');
-  }
-
-  document.getElementById('choose-pdf').addEventListener('click', () => fileInput.click());
-  fileInput.addEventListener('change', () => {
-    previewFile(fileInput.files[0]);
-    fileInput.value = '';
-  });
-
-  dropzone.addEventListener('dragenter', (event) => {
-    event.preventDefault();
-    dragDepth += 1;
-    dropzone.classList.add('is-dragging');
-  });
-  dropzone.addEventListener('dragover', (event) => {
-    event.preventDefault();
-    if (event.dataTransfer) event.dataTransfer.dropEffect = 'copy';
-  });
-  dropzone.addEventListener('dragleave', () => {
-    dragDepth = Math.max(0, dragDepth - 1);
-    if (!dragDepth) dropzone.classList.remove('is-dragging');
-  });
-  dropzone.addEventListener('drop', (event) => {
-    event.preventDefault();
-    dragDepth = 0;
-    dropzone.classList.remove('is-dragging');
-    previewFile(event.dataTransfer?.files[0]);
-  });
-
-  // Prevent a file dropped outside the placeholder from replacing the homepage.
-  document.addEventListener('dragover', (event) => event.preventDefault());
-  document.addEventListener('drop', (event) => event.preventDefault());
 
   document.querySelectorAll('[data-preview]').forEach((button) => {
     button.addEventListener('click', () => {
