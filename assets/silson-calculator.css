@@ -1,0 +1,22 @@
+@font-face{font-family:"Workroom Sans";src:url("fonts/WorkroomSans.woff2?v=20261016-silson") format("woff2");font-weight:100 900;font-display:swap}
+:root,:root:not([data-theme]),:root[data-theme]{color-scheme:light;--bg:#f8f8f7;--surface:#fff;--line:#e7e7e7;--fg:#171717;--muted:#737373;--accent:#cf2c18;--accent-soft:#fff5f1;--in-bg:#fffbed;--in-line:#ded9c9;--in-focus:#b6a97e;--deduct:#b83724;--ok:#39664f;--warn:#916d16;--font-body:"Workroom Sans","Malgun Gothic",system-ui,sans-serif;--font-num:"Workroom Sans","Malgun Gothic",sans-serif;--r:4px}
+body{padding:0 0 96px;background:var(--bg);font-size:14px}
+.calculator-header{height:58px;display:flex;align-items:center;gap:15px;padding:0 max(22px,calc((100vw - 1120px)/2));border-bottom:1px solid var(--line);background:#fff;font-size:12px}
+.home-link{display:grid;place-items:center;width:32px;height:34px;flex:none;color:var(--fg)}
+.home-link svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:2.2}
+.home-link:hover,.header-workroom:hover{color:var(--accent)}
+.header-workroom{margin-left:auto;color:var(--fg);text-decoration:none;font-size:15px;font-weight:700;letter-spacing:-.4px}.header-workroom>span,.title-dot{color:#ef3219}
+.wrap{padding:32px 22px 0;max-width:1164px;gap:18px}
+.eyebrow{font-size:10px;letter-spacing:1.5px;color:var(--muted);margin:0 0 8px}
+h1{font-size:32px;font-weight:650;letter-spacing:-1px}.sub{font-size:13px;margin-top:7px}
+.scope-note{font-size:11px;line-height:1.8;background:#fff;border:1px solid var(--line);border-left:2px solid #333;padding:12px 14px;margin:18px 0 0;color:#666;max-width:none}
+.panel{padding:20px;gap:15px}.choice{border-radius:3px;border-width:1px;padding:12px}.choice b{font-size:14px}.choice span{font-size:11px}.choices{grid-template-columns:repeat(4,minmax(0,1fr))}
+.step{border-radius:3px;background:#222;font-size:11px;width:21px;height:21px}.choice[aria-pressed=true]{border-color:var(--accent);background:#fff8f5}.choice[aria-pressed=true] b{color:var(--accent)}
+.in input,select,.btn{border-radius:3px;border-width:1px}.in input{font-size:13px;padding-top:9px;padding-bottom:9px}select{font-size:12px;padding:9px 7px}.in input[aria-invalid=true]{border-color:#cf2c18;background:#fff2ee}
+.in input:focus{outline:1px solid var(--in-focus);outline-offset:0}.btn{font-size:12px;padding:8px 11px}.rowhead{font-size:11px}.how{font-size:10px;line-height:1.7}.vrow-wrap{gap:8px;margin-bottom:12px}.res{font-size:12px}.lbl{font-size:12px}.hint{font-size:11px;line-height:1.8}.receipt{font-size:11px;line-height:1.8}.legend{font-size:11px}.sev{font-size:12px;line-height:1.7}
+.fund-field{display:grid;grid-template-columns:minmax(0,1fr) 170px;align-items:center;gap:12px;padding:8px 0;font-size:11px}.fund-field small{display:block;color:var(--muted);font-size:10px;line-height:1.7}.fund-field input{font-size:12px}
+.coverage-options{display:flex;gap:12px 24px;flex-wrap:wrap}.coverage-options .sev input{accent-color:#333}
+.result-sticky{position:sticky;top:16px}.summary{position:static}.big{font-size:27px;font-weight:650}.sumrows{font-size:13px}.result-note{font-size:11px;line-height:1.9;color:var(--muted);margin:12px 2px}.calcbox{font-size:11px;line-height:1.8}.calcbox .ln{flex-wrap:wrap}.calcbox .ln>span:last-child{margin-left:auto}.foot{max-width:none;font-size:11px;line-height:1.9}.rules{font-size:12px;line-height:1.9}.rulesbox>summary{font-size:12px}.sources a{color:var(--muted);text-underline-offset:3px}.sources ul{padding-left:18px;font-size:11px;line-height:2}.mbar{box-shadow:0 -3px 15px #00000005}.mbar .big{font-size:21px}
+.calculation-issues{padding-left:15px;margin:7px 0 0;font-size:11px;line-height:1.8;color:var(--deduct)}
+@media(max-width:900px){.choices{grid-template-columns:repeat(2,minmax(0,1fr))}.grid{grid-template-columns:minmax(0,1fr)}.result-sticky{position:static}.panel{padding:16px}.wrap{padding-top:24px}.summary{order:0}}
+@media(max-width:620px){.calculator-header{padding:0 16px}.wrap{padding-left:14px;padding-right:14px}.header-workroom{font-size:13px}h1{font-size:28px}.choices{gap:7px}.choice{padding:10px}.choice span{font-size:10px}.fund-field{grid-template-columns:minmax(0,1fr);gap:6px}.scope-note{padding:11px;font-size:10px}.panel{gap:12px}h2{font-size:14px;flex-wrap:wrap}.receipt{grid-template-columns:1fr;gap:2px}.receipt dd+dt{margin-top:6px}.ln{flex-wrap:wrap}.big{font-size:24px}.coverage-options{gap:8px}.mbar{gap:8px}}

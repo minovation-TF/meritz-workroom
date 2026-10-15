@@ -31,6 +31,7 @@
     <symbol id="icon-download" viewBox="0 0 24 24"><path d="M12 3v12m-5-5 5 5 5-5M4 18v3h16v-3"/></symbol>
     <symbol id="icon-care" viewBox="0 0 28 28"><path d="M5 15a9 9 0 1 1 18 0v6H5zM5 16H3v5h4m16-5h2v5h-4m-10-1a3 3 0 0 0 6 0v-2h-6z"/></symbol>
     <symbol id="icon-health" viewBox="0 0 28 28"><path d="M4 5h20v18H4zM14 9v10m-5-5h10"/></symbol>
+    <symbol id="icon-calculator" viewBox="0 0 28 28"><rect x="6" y="3" width="16" height="22" rx="1"/><path d="M10 7h8v4h-8zM10 15h1m6 0h1m-8 4h1m6 0h1"/></symbol>
   </svg>
 
   <header class="site-header">
@@ -97,7 +98,7 @@
       <section class="tools-panel" aria-labelledby="tools-title">
         <div class="tools-heading">
           <div><p class="section-index"><span>03</span> EVERYDAY TOOLS</p><h2 id="tools-title">작은 도구, 편리한 하루</h2></div>
-          <span class="coming-soon">4종 준비 중</span>
+          <span class="coming-soon">3종 준비 중</span>
         </div>
         <div class="tool-grid" aria-label="업무 도구">
           <a class="tool" href="https://www.meritzfire.com/disclosure/product-announcement/product-list.do#!/" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true"><use href="#icon-disclosure"/></svg><span>상품공시실</span></a>
@@ -105,7 +106,7 @@
           <button class="tool" type="button" data-modal-open="customer-modal"><svg aria-hidden="true"><use href="#icon-phone"/></svg><span>고객센터</span></button>
           <button class="tool" type="button" data-modal-open="service-modal"><svg aria-hidden="true"><use href="#icon-service"/></svg><span>서비스 신청</span></button>
           <button class="tool" type="button" data-modal-open="claim-modal"><svg aria-hidden="true"><use href="#icon-insurance"/></svg><span>보험금 청구</span></button>
-          <button class="tool tool-pending" type="button" disabled><svg aria-hidden="true"><use href="#icon-image"/></svg><span>준비중</span></button>
+          <a class="tool" id="open-silson" href="silson-calculator.html" target="_blank" rel="noopener noreferrer" aria-label="실비계산기 열기 (새 탭)"><svg aria-hidden="true"><use href="#icon-calculator"/></svg><span>실비계산기</span></a>
           <button class="tool tool-pending" type="button" disabled><svg aria-hidden="true"><use href="#icon-compress"/></svg><span>준비중</span></button>
           <button class="tool tool-pending" type="button" disabled><svg aria-hidden="true"><use href="#icon-pages"/></svg><span>준비중</span></button>
           <button class="tool tool-pending" type="button" disabled><svg aria-hidden="true"><use href="#icon-qr"/></svg><span>준비중</span></button>
