@@ -6,8 +6,8 @@
 
 `index.html`은 메리츠화재 영업가족을 위한 대문 화면입니다. 정사각형·5:4 모니터와 와이드 화면에서 왼쪽 PDF 편집기 진입 영역과 오른쪽 명함·업무 도구 영역을 50:50으로 표시하고, 모바일에서는 세로로 배치합니다.
 
-- `PDF 편집기 열기`는 `https://minovation-tf.github.io/pdf-editor/`를 새 탭에서 엽니다. PDF 파일은 열린 편집기에서 선택하거나 놓습니다.
-- `명함 만들기`는 Sites에서 확인한 운영 주소 `https://namecard-maker.sunmino9773.chatgpt.site`를 새 탭에서 엽니다. 명함 사이트의 기존 접근 권한을 따릅니다.
+- `PDF 편집기 열기`는 `https://minovation-tf.github.io/pdf-editor/pdf-editor.html`을 새 탭에서 엽니다. PDF 파일은 열린 편집기에서 선택하거나 놓습니다.
+- `명함 만들기`는 GitHub Pages의 `https://minovation-tf.github.io/pdf-editor/namecard-maker/`를 새 탭에서 엽니다.
 - 업무 도구 1~5번은 메리츠화재 안내 페이지, 연락처 팝업, 서비스 신청 링크와 보험금 청구 안내를 엽니다. 나머지 네 가지는 연결 전 미리보기입니다.
 - 고객센터 번호와 보험금 청구 팩스·주소는 팝업의 복사 아이콘으로 복사할 수 있습니다. 인콜 모니터링 링크도 고객에게 보낼 수 있도록 복사 기능을 제공합니다.
 - 보험금 청구 팝업에는 `assets/claim-documents`의 PDF 18종을 요청한 순서로 내려받는 목록이 있습니다.
@@ -32,10 +32,13 @@
 
 ## GitHub Pages 배포
 
-이 폴더 전체를 GitHub 저장소의 `main` 브랜치에 올리면 포함된 GitHub Actions가 자동 배포합니다.
+현재 계정 플랜에서는 비공개 저장소의 Pages를 지원하지 않습니다. 대문 소스는 이 비공개 저장소에서 관리하고, 공개 배포는 Pages가 활성화된 `minovation-TF/pdf-editor`의 `main` 루트에서 제공합니다.
 
-1. 코드와 청구 안내 PDF가 포함되어 있으므로 저장소를 비공개로 유지합니다.
-2. 공개 주소로 배포할 때는 저장소 공개 범위와 PDF 자료의 배포 권한을 먼저 확인합니다.
+- 대문: `https://minovation-tf.github.io/pdf-editor/`
+- PDF 편집기: `https://minovation-tf.github.io/pdf-editor/pdf-editor.html`
+- 명함 제작기: `https://minovation-tf.github.io/pdf-editor/namecard-maker/`
+
+배포 저장소에는 대문의 HTML·CSS·JavaScript, 사용 글꼴·CI, 빈 청구 양식 18종과 명함의 정적 빌드 결과를 포함합니다. 명함의 소스 저장소 `minovation-TF/namecard-maker`에서 `pnpm build:pages`로 만든 `dist-pages/`를 배포 저장소의 `namecard-maker/`에 게시합니다. `.nojekyll`을 유지해야 합니다.
 
 ## 방문 통계
 
