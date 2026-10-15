@@ -9,6 +9,7 @@
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23171717'/%3E%3Cpath d='M8 9v14h16V9H8Zm8 0v14m0-7h8' stroke='white' fill='none' stroke-width='1.5'/%3E%3C/svg%3E">
   <link rel="preload" href="assets/fonts/WorkroomSans.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="assets/home.css">
+  <script src="assets/home-config.js" defer></script>
   <script src="assets/home.js" defer></script>
 </head>
 <body>
@@ -228,7 +229,7 @@
     </div>
   </dialog>
 
-  <footer class="site-footer"><span>필요한 도구만, 한곳에.</span><span>minovation-tf</span></footer>
+  <footer class="site-footer"><span>필요한 도구만, 한곳에.</span><div class="home-visits" id="visitstat" aria-live="polite" title="같은 브라우저에서는 하루 한 번 집계됩니다" hidden></div><span>minovation-tf</span></footer>
   <div class="toast" id="preview-message" role="status" aria-live="polite" aria-atomic="true" hidden></div>
 </body>
 </html>

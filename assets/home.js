@@ -86,4 +86,41 @@
       toast.hidden = true;
     }
   });
+
+  async function initVisitStats() {
+    const cfg = window.WORKROOM_CONFIG || {};
+    if (cfg.cloudflareBeaconToken) {
+      const beacon = document.createElement('script');
+      beacon.defer = true;
+      beacon.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+      beacon.dataset.cfBeacon = JSON.stringify({ token: cfg.cloudflareBeaconToken });
+      document.head.appendChild(beacon);
+    }
+    if (!cfg.counterEndpoint) return;
+    const day = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Seoul', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
+    const key = 'workroom_visit_' + day;
+    const countVisit = async () => {
+      let counted = false;
+      try { counted = localStorage.getItem(key) === '1'; } catch {}
+      try {
+        const response = await fetch(cfg.counterEndpoint.replace(/\/$/, '') + (counted ? '/api/stats' : '/api/visit'), {
+          method: counted ? 'GET' : 'POST', mode: 'cors', cache: 'no-store', signal: AbortSignal.timeout(8000)
+        });
+        if (!response.ok) return;
+        const data = await response.json();
+        if (!Number.isFinite(data.today) || !Number.isFinite(data.total) || data.today < 0 || data.total < 0) return;
+        if (!counted) { try { localStorage.setItem(key, '1'); } catch {} }
+        const stats = document.getElementById('visitstat');
+        stats.replaceChildren();
+        const label = document.createElement('span'); label.textContent = '방문 현황';
+        const numbers = document.createElement('strong'); numbers.textContent = '오늘 ' + data.today.toLocaleString('ko-KR') + ' · 누적 ' + data.total.toLocaleString('ko-KR');
+        stats.append(label, numbers); stats.hidden = false;
+      } catch { /* The workspace remains usable when the counter is offline. */ }
+    };
+    try {
+      if (navigator.locks) await navigator.locks.request('workroom-visit-' + day, countVisit);
+      else await countVisit();
+    } catch { /* A blocked optional counter must not affect the home tools. */ }
+  }
+  initVisitStats();
 })();
