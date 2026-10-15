@@ -1,13 +1,13 @@
 # meritz-workroom
 
-가입제안서 PDF를 브라우저 안에서 열어 형광펜, 메모, 스티커를 표시하고 PDF 또는 JPG로 저장하는 단일 페이지 도구입니다.
+메리츠화재 영업가족을 위한 대문입니다. PDF 편집기와 명함 제작기, 필요한 업무 안내를 한곳에서 엽니다.
 
 ## 대문 화면
 
 `index.html`은 메리츠화재 영업가족을 위한 대문 화면입니다. 정사각형·5:4 모니터와 와이드 화면에서 왼쪽 PDF 편집기 진입 영역과 오른쪽 명함·업무 도구 영역을 50:50으로 표시하고, 모바일에서는 세로로 배치합니다.
 
-- `PDF 편집기 열기`는 `https://minovation-tf.github.io/pdf-editor/pdf-editor.html`을 새 탭에서 엽니다. PDF 파일은 열린 편집기에서 선택하거나 놓습니다.
-- `명함 만들기`는 GitHub Pages의 `https://minovation-tf.github.io/pdf-editor/namecard-maker/`를 새 탭에서 엽니다.
+- `PDF 편집기 열기`는 `https://minovation-tf.github.io/pdf-editor/`를 새 탭에서 엽니다. PDF 파일은 열린 편집기에서 선택하거나 놓습니다.
+- `명함 만들기`는 GitHub Pages의 `https://minovation-tf.github.io/namecard-maker/`를 새 탭에서 엽니다.
 - 업무 도구 1~5번은 메리츠화재 안내 페이지, 연락처 팝업, 서비스 신청 링크와 보험금 청구 안내를 엽니다. 나머지 네 가지는 연결 전 미리보기입니다.
 - 고객센터 번호와 보험금 청구 팩스·주소는 팝업의 복사 아이콘으로 복사할 수 있습니다. 인콜 모니터링 링크도 고객에게 보낼 수 있도록 복사 기능을 제공합니다.
 - 보험금 청구 팝업에는 `assets/claim-documents`의 PDF 18종을 요청한 순서로 내려받는 목록이 있습니다.
@@ -32,13 +32,15 @@
 
 ## GitHub Pages 배포
 
-현재 계정 플랜에서는 비공개 저장소의 Pages를 지원하지 않습니다. 대문 소스는 이 비공개 저장소에서 관리하고, 공개 배포는 Pages가 활성화된 `minovation-TF/pdf-editor`의 `main` 루트에서 제공합니다.
+세 프로그램 저장소는 공개이며, 각각 같은 이름의 GitHub Pages 경로에서 배포합니다. 이 대문은 `main` 루트를 게시합니다.
 
-- 대문: `https://minovation-tf.github.io/pdf-editor/`
-- PDF 편집기: `https://minovation-tf.github.io/pdf-editor/pdf-editor.html`
-- 명함 제작기: `https://minovation-tf.github.io/pdf-editor/namecard-maker/`
+- 대문: `https://minovation-tf.github.io/meritz-workroom/`
+- PDF 편집기: `https://minovation-tf.github.io/pdf-editor/`
+- 명함 제작기: `https://minovation-tf.github.io/namecard-maker/`
 
-배포 저장소에는 대문의 HTML·CSS·JavaScript, 사용 글꼴·CI, 빈 청구 양식 18종과 명함의 정적 빌드 결과를 포함합니다. 명함의 소스 저장소 `minovation-TF/namecard-maker`에서 `pnpm build:pages`로 만든 `dist-pages/`를 배포 저장소의 `namecard-maker/`에 게시합니다. `.nojekyll`을 유지해야 합니다.
+이 저장소에는 대문의 HTML·CSS·JavaScript, 사용 글꼴·CI, 빈 청구 양식 18종이 있습니다. 명함 저장소는 자체 Pages 빌드·배포를 사용하고, PDF 편집기 저장소는 자체 정적 진입점을 사용합니다.
+
+소스 저장소는 프로그램 코드와 배포 자산을 보관하는 곳입니다. 사용자가 선택한 PDF와 입력한 명함 정보는 GitHub 저장소에 저장하지 않습니다. 명함 정보·업로드 이미지와 PDF 편집기의 개인 문구·스티커는 각 브라우저에 보관합니다.
 
 ## 방문 통계
 
