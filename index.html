@@ -8,12 +8,13 @@
   <title>WORKROOM — PDF & 명함</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23171717'/%3E%3Cpath d='M8 9v14h16V9H8Zm8 0v14m0-7h8' stroke='white' fill='none' stroke-width='1.5'/%3E%3C/svg%3E">
   <link rel="preload" href="assets/fonts/WorkroomSans.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="assets/home.css?v=20261016-merry">
+  <link rel="stylesheet" href="assets/home.css?v=20261016-home-ars">
   <script src="assets/home-config.js" defer></script>
-  <script src="assets/home.js" defer></script>
+  <script src="assets/home.js?v=20261016-home-ars" defer></script>
 </head>
 <body>
   <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="icon-external" viewBox="0 0 24 24"><path d="M7 17 17 7M7 7h10v10"/></symbol>
     <symbol id="icon-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
     <symbol id="icon-file" viewBox="0 0 48 56"><path d="M28 3H8a3 3 0 0 0-3 3v44a3 3 0 0 0 3 3h32a3 3 0 0 0 3-3V18L28 3Z"/><path d="M28 3v15h15M15 30h18M15 37h12"/></symbol>
     <symbol id="icon-upload" viewBox="0 0 24 24"><path d="M12 16V4m-4 4 4-4 4 4M5 16v4h14v-4"/></symbol>
@@ -23,7 +24,7 @@
     <symbol id="icon-pages" viewBox="0 0 28 28"><rect x="4" y="4" width="8" height="9" rx="1"/><rect x="16" y="4" width="8" height="9" rx="1"/><path d="M8 17v7m-3-3 3 3 3-3m6-3h7m-3-3 3 3-3 3"/></symbol>
     <symbol id="icon-disclosure" viewBox="0 0 28 28"><path d="M6 4h16v20H6zM10 9h8m-8 4h5m-5 5 2 2 5-5"/></symbol>
     <symbol id="icon-claim-docs" viewBox="0 0 28 28"><path d="M7 3h10l5 5v17H7zM17 3v6h5M11 14h7m-7 4h7m-7 4h7"/></symbol>
-    <symbol id="icon-phone" viewBox="0 0 28 28"><path d="M8 4h12v20H8zM12 7h4m-3 14h2"/></symbol>
+    <symbol id="icon-phone" viewBox="0 0 28 28"><path d="m8 3 4 6-3 3a20 20 0 0 0 7 7l3-3 6 4-1 4c-.3 1-1.2 1.5-2.3 1.4C11 24.5 3.5 17 2.6 6.3 2.5 5.2 3 4.3 4 4l4-1Z"/></symbol>
     <symbol id="icon-service" viewBox="0 0 28 28"><path d="M5 7h18v16H5zM10 7V4h8v3m-4 4v8m-4-4h8"/></symbol>
     <symbol id="icon-insurance" viewBox="0 0 28 28"><path d="M4 14a10 10 0 0 1 20 0H4Zm10 0v8a3 3 0 0 0 6 0"/><path d="M14 8v2m-5 2v2m10-4v2"/></symbol>
     <symbol id="icon-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/></symbol>
@@ -101,12 +102,12 @@
           <span class="coming-soon">3종 준비 중</span>
         </div>
         <div class="tool-grid" aria-label="업무 도구">
-          <a class="tool" href="https://www.meritzfire.com/disclosure/product-announcement/product-list.do#!/" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true"><use href="#icon-disclosure"/></svg><span>상품공시실</span></a>
-          <a class="tool" href="https://www.meritzfire.com/compensation/longterm-insurance/request-document.do#!/" target="_blank" rel="noopener noreferrer"><svg aria-hidden="true"><use href="#icon-claim-docs"/></svg><span>청구 필요서류</span></a>
+          <a class="tool" href="https://www.meritzfire.com/disclosure/product-announcement/product-list.do#!/" target="_blank" rel="noopener noreferrer" aria-label="상품공시실 (새 탭)"><span class="tool-symbol" aria-hidden="true"><svg><use href="#icon-disclosure"/></svg><svg class="external-mark"><use href="#icon-external"/></svg></span><span>상품공시실</span></a>
+          <a class="tool" href="https://www.meritzfire.com/compensation/longterm-insurance/request-document.do#!/" target="_blank" rel="noopener noreferrer" aria-label="청구 필요서류 (새 탭)"><span class="tool-symbol" aria-hidden="true"><svg><use href="#icon-claim-docs"/></svg><svg class="external-mark"><use href="#icon-external"/></svg></span><span>청구 필요서류</span></a>
           <button class="tool" type="button" data-modal-open="customer-modal"><svg aria-hidden="true"><use href="#icon-phone"/></svg><span>고객센터</span></button>
-          <button class="tool" type="button" data-modal-open="service-modal"><svg aria-hidden="true"><use href="#icon-service"/></svg><span>서비스 신청</span></button>
+          <button class="tool" type="button" data-modal-open="service-modal"><svg aria-hidden="true"><use href="#icon-service"/></svg><span>현물서비스</span></button>
           <button class="tool" type="button" data-modal-open="claim-modal"><svg aria-hidden="true"><use href="#icon-insurance"/></svg><span>보험금 청구</span></button>
-          <a class="tool" id="open-silson" href="silson-calculator.html" target="_blank" rel="noopener noreferrer" aria-label="실비계산기 열기 (새 탭)"><svg aria-hidden="true"><use href="#icon-calculator"/></svg><span>실비계산기</span></a>
+          <a class="tool" id="open-silson" href="silson-calculator.html" target="_blank" rel="noopener noreferrer" aria-label="실비계산기 열기 (새 탭)"><span class="tool-symbol" aria-hidden="true"><svg><use href="#icon-calculator"/></svg><svg class="external-mark"><use href="#icon-external"/></svg></span><span>실비계산기</span></a>
           <button class="tool tool-pending" type="button" disabled><svg aria-hidden="true"><use href="#icon-compress"/></svg><span>준비중</span></button>
           <button class="tool tool-pending" type="button" disabled><svg aria-hidden="true"><use href="#icon-pages"/></svg><span>준비중</span></button>
           <button class="tool tool-pending" type="button" disabled><svg aria-hidden="true"><use href="#icon-qr"/></svg><span>준비중</span></button>
@@ -138,9 +139,10 @@
 
   <dialog class="modal ars-modal voice-ars" id="voice-ars-modal" aria-labelledby="voice-ars-title">
     <div class="modal-header"><div><p class="modal-eyebrow">MERITZ FIRE · ARS GUIDE</p><h2 id="voice-ars-title" tabindex="-1" autofocus>음성 ARS</h2></div><button class="modal-close" type="button" data-modal-close aria-label="고객센터로 돌아가기"><svg class="icon" aria-hidden="true"><use href="#icon-close"/></svg></button></div>
+    <div class="modal-feedback" role="status" aria-live="polite" aria-atomic="true" hidden></div>
     <div class="modal-body">
       <div class="ars-context"><a href="tel:15667711">1566-7711</a><span>메리츠화재 고객센터</span></div>
-      <p class="modal-intro">번호별 메뉴를 눌러 하위 안내를 확인하세요.</p>
+      <p class="modal-intro">번호별 메뉴를 펼친 뒤 원하는 업무를 선택하세요. 전화번호와 누를 번호 순서를 복사해 보낼 수 있습니다.</p>
       <div class="ars-menu" aria-label="음성 ARS 번호별 메뉴">
         <div class="ars-menu-item ars-menu-row" data-ars-key="1"><span class="ars-key">1</span><span class="ars-menu-title">자동차 사고접수</span></div>
         <div class="ars-menu-item ars-menu-row" data-ars-key="2"><span class="ars-key">2</span><span class="ars-menu-title">자동차고장 긴급출동</span></div>
@@ -154,14 +156,21 @@
       </div>
       <button class="ars-back" type="button" data-modal-close>← 고객센터로 돌아가기</button>
     </div>
+    <section class="ars-selection" aria-labelledby="ars-selection-title">
+      <div class="ars-selection-heading"><h3 id="ars-selection-title">고객에게 보낼 진행 순서</h3><button class="ars-guide-copy" id="copy-ars-guide" type="button" data-copy="" hidden><svg class="icon" aria-hidden="true"><use href="#icon-copy"/></svg>진행 순서 복사</button></div>
+      <p id="ars-selected-guide" aria-live="polite">위에서 원하는 업무를 선택하면 안내 문구가 여기에 표시됩니다.</p>
+    </section>
   </dialog>
 
   <dialog class="modal ars-modal digital-ars" id="digital-ars-modal" aria-labelledby="digital-ars-title">
     <div class="modal-header"><div><p class="modal-eyebrow">MERITZ FIRE · ARS GUIDE</p><h2 id="digital-ars-title" tabindex="-1" autofocus>디지털 ARS</h2></div><button class="modal-close" type="button" data-modal-close aria-label="고객센터로 돌아가기"><svg class="icon" aria-hidden="true"><use href="#icon-close"/></svg></button></div>
+    <div class="modal-feedback" role="status" aria-live="polite" aria-atomic="true" hidden></div>
     <div class="modal-body">
       <div class="ars-context"><a href="tel:15667711">1566-7711</a><span>메리츠화재 고객센터</span></div>
-      <p class="modal-intro">화면 메뉴를 눌러 이용할 수 있는 서비스를 확인하세요.</p>
-      <details class="ars-screen"><summary>디지털 ARS 화면 보기</summary><img src="assets/ars/digital-ars.png" width="762" height="1536" loading="lazy" alt="메리츠화재 디지털 ARS 화면 예시. 사고접수, 고장출동과 계약조회 등 서비스 메뉴가 표시되어 있습니다."></details>
+      <p class="modal-intro">이미지의 번호와 같은 서비스 안내를 옆에서 확인하세요. +가 있는 메뉴를 누르면 세부 서비스가 펼쳐집니다.</p>
+      <div class="digital-guide">
+        <figure class="ars-screen"><div class="ars-screen-map"><img src="assets/ars/digital-ars.png" width="762" height="1536" alt="메리츠화재 디지털 ARS 화면 예시. 옆의 번호별 목록에서 각 메뉴의 서비스를 확인할 수 있습니다."><div class="ars-screen-markers" aria-hidden="true"><span style="--x:12%;--y:19%">1</span><span style="--x:56%;--y:19%">2</span><span style="--x:12%;--y:27.5%">3</span><span style="--x:39%;--y:27.5%">4</span><span style="--x:66%;--y:27.5%">5</span><span style="--x:12%;--y:41.5%">6</span><span style="--x:39%;--y:41.5%">7</span><span style="--x:66%;--y:41.5%">8</span><span style="--x:12%;--y:55.5%">9</span><span style="--x:39%;--y:55.5%">10</span><span style="--x:66%;--y:55.5%">11</span><span style="--x:12%;--y:71.5%">12</span><span style="--x:39%;--y:71.5%">13</span><span style="--x:66%;--y:71.5%">14</span></div></div><figcaption>번호는 화면 설명용이며, 전화 단축번호가 아닙니다.</figcaption></figure>
+        <div class="digital-services"><h3 class="digital-services-title">화면 속 번호별 서비스</h3>
       <div class="ars-menu" aria-label="디지털 ARS 화면 메뉴">
         <div class="ars-menu-item ars-menu-row" data-ars-key="1"><span class="ars-key">1</span><span class="ars-menu-title">자동차 사고접수</span></div>
         <div class="ars-menu-item ars-menu-row" data-ars-key="2"><span class="ars-key">2</span><span class="ars-menu-title">자동차 고장출동</span></div>
@@ -181,12 +190,14 @@
         <div class="ars-menu-item ars-menu-row" data-ars-key="13"><span class="ars-key">13</span><span class="ars-menu-title">계약 해지/변경 서류 안내</span></div>
         <div class="ars-menu-item ars-menu-row" data-ars-key="14"><span class="ars-key">14</span><span class="ars-menu-title">신규 보험 가입 문의</span></div>
       </div>
+        </div>
+      </div>
       <button class="ars-back" type="button" data-modal-close>← 고객센터로 돌아가기</button>
     </div>
   </dialog>
 
   <dialog class="modal service-modal" id="service-modal" aria-labelledby="service-title">
-    <div class="modal-header"><div><p class="modal-eyebrow">MERITZ FIRE</p><h2 id="service-title">서비스 신청</h2></div><button class="modal-close" type="button" data-modal-close aria-label="팝업 닫기"><svg class="icon" aria-hidden="true"><use href="#icon-close"/></svg></button></div>
+    <div class="modal-header"><div><p class="modal-eyebrow">MERITZ FIRE</p><h2 id="service-title">현물서비스</h2></div><button class="modal-close" type="button" data-modal-close aria-label="팝업 닫기"><svg class="icon" aria-hidden="true"><use href="#icon-close"/></svg></button></div>
     <div class="modal-feedback" role="status" aria-live="polite" hidden></div>
     <div class="modal-body"><p class="modal-intro">필요한 서비스를 선택해 신청 페이지로 이동하세요.</p><div class="service-grid">
       <a class="service-tile" href="https://www.meritzfire.com/compensation/caregiver-service/request.do#!/" target="_blank" rel="noopener noreferrer"><svg><use href="#icon-care"/></svg><span>간병인 지원 서비스</span><span class="service-arrow" aria-hidden="true">↗</span></a>
