@@ -127,7 +127,7 @@ details.rulesbox summary{cursor:pointer;font-weight:600}
 .adv{font-size:.84rem}
 .adv summary{cursor:pointer;color:var(--muted)}
 .adv .pairs{margin-top:8px}
-</style><title>실비계산기 · WORKROOM</title><link rel="stylesheet" href="assets/silson-calculator.css?v=20261016-workroom"></head><body>
+</style><title>실비계산기 · WORKROOM</title><link rel="stylesheet" href="assets/silson-calculator.css?v=20261016-breakdown"></head><body>
 
 
 
@@ -199,7 +199,7 @@ details.rulesbox summary{cursor:pointer;font-weight:600}
 
   <p class="foot">기준 확인: 2026.10.16. 5세대 비급여 3종·상급병실료 차액은 계산하지 않습니다. 3·4세대 비급여 3종은 해당 특약 가입 시 1회 금액만 입력하세요. 참고용 계산입니다. 연간 보상한도, 통원·치료 횟수 한도, 입원 자기부담 연간 상한(200만원), 보상하지 않는 항목, 여러 보험 가입 시 비례보상은 반영하지 않습니다. 실제 지급액은 가입 약관과 심사 결과에 따릅니다.</p><details class="rulesbox sources"><summary>확인한 공식 자료</summary><ul><li><a href="https://www.fsc.go.kr/no010101/86831" target="_blank" rel="noopener noreferrer">금융위원회 · 5세대 실손 출시 및 보장 기준 (2026.5.6.)</a></li><li><a href="https://www.fsc.go.kr/no010101/76157" target="_blank" rel="noopener noreferrer">금융위원회 · 4세대 실손 출시 및 3·4세대 공제 비교 (2021.6.29.)</a></li><li><a href="https://www.fsc.go.kr/po010106/70570" target="_blank" rel="noopener noreferrer">금융위원회 · 표준형 실손 출시 (2013.1.1.)</a></li></ul></details>
 </main>
-<div class="mbar" aria-hidden="true"><span style="font-size:.86rem;color:var(--muted)">예상 보험금</span><span class="big" id="mTotal">0원</span></div>
+<div class="mbar" aria-label="예상 보험금 바로가기"><span style="font-size:.86rem;color:var(--muted)">예상 보험금</span><span class="big" id="mTotal">0원</span><button class="btn" id="showBreakdown" type="button">계산 내역</button></div>
 
 <script id="calc">
 const GENS = {
@@ -223,14 +223,34 @@ const floor = n => Math.floor(n + 1e-9);
 const clamp = (x, cap) => Math.min(Math.max(0,cap), Math.max(0,Number.isFinite(x)?x:0));
 function fmt(n){ return Math.round(n).toLocaleString('ko-KR'); }
 
+/* 계산에 사용한 공제·한도와 실제 반환한 보험금을 함께 기록한다. */
+function traceDeduction(label,amount,ded,pay,limit=Infinity,extra={}){
+  const self=Math.min(amount,Math.max(0,ded)),after=Math.max(0,amount-self);
+  const limited=Math.min(after,Math.max(0,limit));
+  return {label,amount,ded,self,pay,limit,limitCut:Math.max(0,after-limited),
+    rounding:Math.max(0,limited-pay),excluded:0,waiting:0,...extra};
+}
+function traceUnavailable(label,amount,reason,pending=false){
+  return {label,amount,pay:0,self:0,limitCut:0,rounding:0,
+    excluded:pending?0:amount,waiting:pending?amount:0,reason,pending,unavailable:true,candidates:[]};
+}
+function traceChoice(fixed,rate,flat=false){
+  if(flat)return '선택한 유형의 통원은 정액만 한 번 공제합니다.';
+  return fixed===rate?'최소공제와 비율 공제가 같아 이 금액을 한 번 공제합니다.'
+    :fixed>rate?'비율 공제보다 최소공제금이 커서 최소공제금을 적용합니다.'
+    :'최소공제금보다 비율 공제가 커서 비율 공제액을 적용합니다.';
+}
+
 /* 4세대 통원: 급여·비급여 따로 공제, 각각 회당 20만원 */
 function out4(v){
   const fix=(GENS.g4.grades.find(x=>x.v===v.grade)||GENS.g4.grades[0]).fix;
   const lines=[]; let pay=0;
   if(v.g>0){ const d=Math.max(fix,v.g*.2), p=floor(clamp(v.g-d,200000));
-    lines.push({k:'급여',ded:d,why:d===fix?`최소공제 ${fmt(fix)}`:`20%`,pay:p,cap:v.g-d>200000}); pay+=p; }
+    lines.push({k:'급여',ded:d,why:d===fix?`최소공제 ${fmt(fix)}`:`20%`,pay:p,cap:v.g-d>200000,
+      trace:traceDeduction('급여',v.g,d,p,200000,{candidates:[{label:'비율 공제',parts:[[v.g,.2]]},{label:'최소공제',value:fix}],reason:traceChoice(fix,v.g*.2)})}); pay+=p; }
   if(v.b>0){ const d=Math.max(30000,v.b*.3), p=floor(clamp(v.b-d,200000));
-    lines.push({k:'비급여',ded:d,why:d===30000?'최소공제 30,000':'30%',pay:p,cap:v.b-d>200000}); pay+=p; }
+    lines.push({k:'비급여',ded:d,why:d===30000?'최소공제 30,000':'30%',pay:p,cap:v.b-d>200000,
+      trace:traceDeduction('비급여',v.b,d,p,200000,{candidates:[{label:'비율 공제',parts:[[v.b,.3]]},{label:'최소공제',value:30000}],reason:traceChoice(30000,v.b*.3)})}); pay+=p; }
   return {pay,lines};
 }
 /* 2·3세대 통원: 급여+비급여 합산 후 1회 공제 */
@@ -243,12 +263,17 @@ function out23(gen,type,v,caps){
   const rate=v.g*r.rg+v.b*r.rb;
   const d=r.flat?fix:Math.max(fix,rate);
   const p=floor(clamp(tot-d,cap));
-  return {pay:p,lines:[{k:'',ded:d,why:(r.flat||d===fix)?`최소공제 ${fmt(fix)}`:'정률',pay:p,cap:tot-d>cap}]};
+  return {pay:p,lines:[{k:'',ded:d,why:(r.flat||d===fix)?`최소공제 ${fmt(fix)}`:'정률',pay:p,cap:tot-d>cap,
+    trace:traceDeduction(rx?'처방조제':'급여·비급여 합산',tot,d,p,cap,{
+      inputParts:[['급여',v.g],['비급여',v.b]],
+      candidates:[...(!r.flat?[{label:'급여·비급여 비율 공제 합계',parts:[[v.g,r.rg],[v.b,r.rb]]}]:[]),{label:'정액 공제',value:fix}],reason:traceChoice(fix,rate,r.flat)})}]};
 }
 function three(gen,amt){
   const fix=GENS[gen].threeFix; if(amt<=0) return {pay:0,ded:0,why:''};
   const d=Math.max(fix,amt*.3);
-  return {pay:floor(Math.max(0,amt-d)),ded:d,why:d===fix?`최소공제 ${fmt(fix)}`:'30%'};
+  const pay=floor(Math.max(0,amt-d));
+  return {pay,ded:d,why:d===fix?`최소공제 ${fmt(fix)}`:'30%',
+    trace:traceDeduction('비급여 3종',amt,d,pay,Infinity,{candidates:[{label:'비율 공제',parts:[[amt,.3]]},{label:'최소공제',value:fix}],reason:traceChoice(fix,amt*.3)})};
 }
 /* 입원: 정률 + 상급병실료 차액 50% (1일 평균 10만원 한도) */
 function inpatient(gen,type,h){
@@ -256,23 +281,42 @@ function inpatient(gen,type,h){
   const gp=h.g*(1-r.rg), bp=h.b*(1-r.rb);
   let room=0, perDay=0;
   if(h.room>0 && h.days>0){ perDay=Math.min(h.room*.5/h.days,100000); room=perDay*h.days; }
-  return {gp,bp,room,perDay,r,pay:floor(gp+bp+room)};
+  const traces=[];
+  if(h.g>0)traces.push(traceDeduction('급여',h.g,h.g-gp,gp,Infinity,{candidates:[{label:'자기부담금',parts:[[h.g,r.rg]]}],reason:'입원 급여는 선택한 유형의 자기부담률을 적용합니다. 정액 공제는 없습니다.'}));
+  if(h.b>0)traces.push(traceDeduction('비급여',h.b,h.b-bp,bp,Infinity,{candidates:[{label:'자기부담금',parts:[[h.b,r.rb]]}],reason:'입원 비급여는 선택한 유형의 자기부담률을 적용합니다. 정액 공제는 없습니다.'}));
+  if(h.room>0)traces.push(h.days>0?traceDeduction('상급병실료 차액',h.room,h.room*.5,room,h.days*100000,{
+    candidates:[{label:'자기부담금',parts:[[h.room,.5]]}],notes:[['입원 기간',`${fmt(h.days)}일`]],reason:'차액의 50%를 보상하며, 입원 기간 하루 평균 10만원 한도를 적용합니다.'})
+    :traceUnavailable('상급병실료 차액',h.room,'입원일수를 입력하면 50% 보상과 하루 평균 10만원 한도를 계산합니다.',true));
+  return {gp,bp,room,perDay,r,traces,pay:floor(gp+bp+room)};
 }
 /* 5세대 통원: 급여는 max(최소공제, 급여 × max(20%, 건보 본인부담률)), 비급여는 중증/비중증 따로. 각각 회당 20만원 */
 function out5(v,cover={severe:false,mild:false}){
   const gr=GENS.g5.grades.find(x=>x.v===v.grade)||GENS.g5.grades[0],lines=[];let pay=0,pending=false;
   if(v.g>0){
-    if(v.fund===null||v.fund===undefined){pending=true;lines.push({k:'급여',ded:0,why:'건강보험 공단부담금 입력 필요',pay:0,pending:true});}
-    else{const rate=Math.max(.2,v.g/(v.g+v.fund)),d=Math.max(gr.fix,v.g*rate),p=floor(clamp(v.g-d,200000));pay+=p;lines.push({k:'급여',ded:Math.min(v.g,d),why:d===gr.fix?'최소공제 '+fmt(gr.fix):'실제 건보 부담률 기준 '+(rate*100).toFixed(1)+'%',pay:p,cap:v.g-d>200000});}
+    if(v.fund===null||v.fund===undefined){pending=true;lines.push({k:'급여',ded:0,why:'건강보험 공단부담금 입력 필요',pay:0,pending:true,
+      trace:traceUnavailable('급여',v.g,'건강보험 공단부담금을 입력해야 급여 통원 공제를 계산할 수 있습니다. 0원이면 0을 입력하세요.',true)});}
+    else{const nhi=v.g/(v.g+v.fund),rate=Math.max(.2,nhi),d=Math.max(gr.fix,v.g*rate),p=floor(clamp(v.g-d,200000));pay+=p;lines.push({k:'급여',ded:Math.min(v.g,d),why:d===gr.fix?'최소공제 '+fmt(gr.fix):'실제 건보 부담률 기준 '+(rate*100).toFixed(1)+'%',pay:p,cap:v.g-d>200000,
+      trace:traceDeduction('급여',v.g,d,p,200000,{
+        nhi:{self:v.g,fund:v.fund,rate:nhi},
+        candidates:[{label:'건보 본인부담률 연동 공제',parts:[[v.g,nhi]]},{label:'20% 공제',parts:[[v.g,.2]]},{label:'최소공제',value:gr.fix}],
+        reason:'건보 본인부담률로 계산한 금액·20% 공제액·최소공제금 중 가장 큰 금액을 한 번 공제합니다.'})});}
   }
-  if(v.b>0){const covered=v.severe?cover.severe:cover.mild,r=v.severe?.3:.5,fix=v.severe?30000:50000,d=Math.max(fix,v.b*r),p=covered?floor(clamp(v.b-d,200000)):0;pay+=p;lines.push({k:v.severe?'중증 비급여':'비중증 비급여',ded:Math.min(v.b,d),why:covered?(d===fix?'최소공제 '+fmt(fix):(r*100)+'%'):'특약 미선택 · 계산 제외',pay:p,cap:covered&&v.b-d>200000});}
+  if(v.b>0){const covered=v.severe?cover.severe:cover.mild,r=v.severe?.3:.5,fix=v.severe?30000:50000,d=Math.max(fix,v.b*r),p=covered?floor(clamp(v.b-d,200000)):0,label=v.severe?'중증 비급여':'비중증 비급여';pay+=p;lines.push({k:label,ded:covered?Math.min(v.b,d):0,why:covered?(d===fix?'최소공제 '+fmt(fix):(r*100)+'%'):'특약 미선택 · 계산 제외',pay:p,cap:covered&&v.b-d>200000,
+    trace:covered?traceDeduction(label,v.b,d,p,200000,{candidates:[{label:'비율 공제',parts:[[v.b,r]]},{label:'최소공제',value:fix}],reason:traceChoice(fix,v.b*r)})
+      :traceUnavailable(label,v.b,'해당 비급여 특약이 선택되지 않아 계산에서 제외했습니다. 가입 여부를 확인하세요.')});}
   return {pay,lines,pending};
 }
 /* 5세대 일반 입원: 연간 누적 상한은 제외. 병·의원 비중증 회당 300만원 한도 적용. */
 function inpatient5(h,cover={severe:false,mild:false}){
   const gp=h.g*.8,sp=cover.severe?h.bs*.7:0;
   const mildLimit=h.big?Infinity:3000000,mp=cover.mild?Math.min(h.b*.5,mildLimit):0;
-  return {gp,sp,mp,sevSelf:h.bs*.3,capped:false,room:0,perDay:0,mildCapped:cover.mild&&h.b*.5>mildLimit,pay:floor(gp+sp+mp)};
+  const traces=[];
+  if(h.g>0)traces.push(traceDeduction('급여',h.g,h.g-gp,gp,Infinity,{candidates:[{label:'자기부담금',parts:[[h.g,.2]]}],reason:'입원 급여는 20% 자기부담금을 공제합니다. 정액 공제는 없습니다.'}));
+  if(h.bs>0)traces.push(cover.severe?traceDeduction('중증 비급여',h.bs,h.bs-sp,sp,Infinity,{candidates:[{label:'자기부담금',parts:[[h.bs,.3]]}],reason:'선택한 중증 비급여 특약의 입원 자기부담률 30%를 적용합니다.'})
+    :traceUnavailable('중증 비급여',h.bs,'중증 비급여 특약이 선택되지 않아 계산에서 제외했습니다. 가입 여부를 확인하세요.'));
+  if(h.b>0)traces.push(cover.mild?traceDeduction('비중증 비급여',h.b,h.b*.5,mp,mildLimit,{candidates:[{label:'자기부담금',parts:[[h.b,.5]]}],reason:h.big?'입원 자기부담률 50%를 적용합니다. 종합·상급종합병원은 회당 300만원 한도를 적용하지 않습니다.':'입원 자기부담률 50%와 병·의원 입원 회당 300만원 한도를 적용합니다.'})
+    :traceUnavailable('비중증 비급여',h.b,'비중증 비급여 특약이 선택되지 않아 계산에서 제외했습니다. 가입 여부를 확인하세요.'));
+  return {gp,sp,mp,traces,sevSelf:h.bs*.3,capped:false,room:0,perDay:0,mildCapped:cover.mild&&h.b*.5>mildLimit,pay:floor(gp+sp+mp)};
 }
 </script>
 
@@ -365,21 +409,75 @@ function renderInputs(){
     + (g==='g5'?`<label class="sev" style="grid-column:1/-1"><input type="checkbox" id="in-big" data-i="big" ${s.inp.big?'checked':''}> 종합병원·상급종합병원 입원 (중증 비급여 구분 / 비중증 입원 회당 300만원 한도 미적용)</label>`:'');
 }
 
+const detailNumber=n=>Number(n.toFixed(2)).toLocaleString('ko-KR',{maximumFractionDigits:2});
+const detailMoney=n=>(Math.abs(n-Number(n.toFixed(2)))>1e-7?'약 ':'')+detailNumber(n)+'원';
+const escapeDetail=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function traceTotals(groups){
+  const totals={amount:0,self:0,limitCut:0,excluded:0,waiting:0,rounding:0,pay:0};
+  for(const group of groups){
+    const rawPay=group.items.reduce((n,item)=>n+item.pay,0);
+    group.rounding=Math.max(0,rawPay-group.pay);
+    totals.pay+=group.pay;totals.rounding+=group.rounding;
+    for(const item of group.items)for(const key of ['amount','self','limitCut','excluded','waiting','rounding'])totals[key]+=item[key]||0;
+  }
+  return totals;
+}
+function detailRow(label,value,kind=''){
+  return `<div class="detail-row ${kind}"><span>${escapeDetail(label)}</span><span class="num">${escapeDetail(value)}</span></div>`;
+}
+function traceItemHtml(item){
+  const rows=[detailRow('입력한 보장 대상 금액',detailMoney(item.amount))];
+  if(item.unavailable){
+    rows.push(`<p class="detail-reason">${escapeDetail(item.reason)}</p>`,detailRow(item.pending?'계산 대기 금액':'특약 미선택 제외 금액',detailMoney(item.amount),'detail-deduct'));
+  }else{
+    if(item.inputParts)rows.push(...item.inputParts.filter(([,n])=>n>0).map(([label,n])=>detailRow(label,detailMoney(n))));
+    if(item.nhi){const n=item.nhi;
+      rows.push(detailRow('급여 본인부담 / 공단부담',`${detailMoney(n.self)} / ${detailMoney(n.fund)}`),
+        detailRow('실제 건보 본인부담률',`${detailNumber(n.self)} ÷ ${detailNumber(n.self+n.fund)} ≈ ${detailNumber(n.rate*100)}%`));
+    }
+    for(const candidate of item.candidates||[]){
+      const approx=candidate.parts?.some(([,rate])=>Math.abs(rate*100-Number((rate*100).toFixed(2)))>1e-7);
+      const value=candidate.parts?candidate.parts.map(([amount,rate])=>`${detailNumber(amount)} × ${detailNumber(rate*100)}%`).join(' + ')+` ${approx?'≈':'='} ${detailMoney(candidate.parts.reduce((n,[amount,rate])=>n+amount*rate,0))}`:detailMoney(candidate.value);
+      rows.push(detailRow(candidate.label,value));
+    }
+    rows.push(detailRow('적용 공제 기준액',detailMoney(item.ded)),`<p class="detail-reason">${escapeDetail(item.reason||'')}</p>`);
+    if(item.ded>item.amount)rows.push(`<p class="detail-reason">공제 기준액이 입력 금액보다 커서 입력 금액까지만 차감하며, 보험금은 0원입니다.</p>`);
+    rows.push(detailRow('실제 차감한 자기부담금','−'+detailMoney(item.self),'detail-deduct'));
+    for(const [label,value] of item.notes||[])rows.push(detailRow(label,value));
+    if(Number.isFinite(item.limit))rows.push(detailRow(item.label==='상급병실료 차액'?'입원 기간 합산 보상한도':'건별 보상한도',detailMoney(item.limit)),
+      detailRow('한도 초과로 추가 차감',item.limitCut>0?'−'+detailMoney(item.limitCut):'0원 · 추가 차감 없음',item.limitCut>0?'detail-deduct':''));
+    if(item.rounding>1e-7)rows.push(detailRow('보험금 원 미만 버림','−'+detailMoney(item.rounding)));
+  }
+  rows.push(detailRow(item.pending?'보험금 계산':'예상 보험금',item.pending?'입력 확인 필요':detailMoney(item.pay),'detail-pay'));
+  return `<section class="detail-item"><h4>${escapeDetail(item.label)}</h4>${rows.join('')}</section>`;
+}
+function breakdownHtml(groups,totals,open,pending,invalid){
+  if(invalid)return '<p class="breakdown-empty">잘못 입력한 금액을 수정하면 계산 내역이 표시됩니다.</p>';
+  if(!groups.length)return '<p class="breakdown-empty">금액을 입력하면 공제 기준과 차감 내역이 여기에 표시됩니다.</p>';
+  const ledger=pending?'<p class="detail-reason">입력 확인이 필요한 항목이 있습니다. 아래 내역은 현재 입력값으로 계산한 부분이며 전체 보험금은 확정하지 않습니다.</p>':
+    `<div class="breakdown-ledger">${detailRow('입력한 보장 대상 금액',detailMoney(totals.amount))}${detailRow('자기부담금 합계','−'+detailMoney(totals.self),'detail-deduct')}${totals.limitCut>0?detailRow('보상한도 초과 차감','−'+detailMoney(totals.limitCut),'detail-deduct'):''}${totals.excluded>0?detailRow('특약 미선택 제외','−'+detailMoney(totals.excluded),'detail-deduct'):''}${totals.rounding>1e-7?detailRow('보험금 원 미만 버림','−'+detailMoney(totals.rounding)):''}${detailRow('예상 보험금 합계',detailMoney(totals.pay),'detail-pay')}</div>`;
+  return `<details class="calculation-breakdown" id="breakdownBox" ${open?'open':''}><summary>계산 내역 보기 <span>입력액·공제·한도</span></summary><div class="breakdown-body">${ledger}${groups.map(group=>
+    `<section class="detail-group"><h3><span>${escapeDetail(group.title)}</span><span class="num">${group.items.some(item=>item.pending)?'입력 확인 필요':detailMoney(group.pay)}</span></h3>${group.items.map(traceItemHtml).join('')}${group.rounding>1e-7?detailRow('입원 합계의 원 미만 버림','−'+detailMoney(group.rounding)):''}</section>`).join('')}<p class="breakdown-scope">연간 누적 한도·자기부담 상한·이전 청구액·비례보상은 이 내역에 반영하지 않습니다.</p></div></details>`;
+}
+
 function compute(){
   const g=state.gen, s=S(), G=GENS[g];
-  let out=0,pending=false;
+  let out=0,pending=false;const groups=[];
   s.visits.forEach((v,i)=>{
     const r = g==='g5'?out5(v,s.cover):g==='g4'?out4(v):out23(g,s.type,v,s.caps);
     out+=r.pay;pending ||= !!r.pending;
+    if(v.g+v.b>0)groups.push({id:'visit-'+i,part:'out',title:`통원 ${i+1} · ${v.kind==='rx'?'약국':(G.grades.find(x=>x.v===v.grade)||G.grades[0]).label}`,pay:r.pay,items:r.lines.map(line=>line.trace)});
     const res=document.getElementById('vr'+i), how=document.getElementById('vh'+i);
     if(res) res.textContent=r.pending?'공단금액 필요':fmt(r.pay)+'원';
-    if(how) how.innerHTML = r.lines.map(l=>`<span>${l.k?l.k+' ':''}공제 <span class="d">−${fmt(l.ded)}</span> (${l.why})${l.cap?' · 회당 한도 적용':''}${l.k?` → ${fmt(l.pay)}원`:''}</span>`).join('');
+    if(how) how.innerHTML = r.lines.map(l=>`<span>${l.k?l.k+' ':''}${l.trace.unavailable?l.why:`공제 <span class="d">−${detailNumber(l.trace.self)}</span> (${l.why})`}${l.cap?` · 한도 초과 −${detailNumber(l.trace.limitCut)}원`:''}${l.k?` → ${l.pending?'입력 확인 필요':fmt(l.pay)+'원'}`:''}</span>`).join('');
   });
   let th=0;
   if(g!=='g2'&&g!=='g5') s.three.forEach((a,i)=>{ const r=three(g,a); th+=r.pay;
-    const el=document.getElementById('tr'+i); if(el) el.innerHTML = a>0?`${fmt(r.pay)}원<div class="how" style="text-align:right;font-weight:400"><span>공제 <span class="d">−${fmt(r.ded)}</span> (${r.why})</span></div>`:'0원'; });
+    if(a>0)groups.push({id:'three-'+i,part:'three',title:THREE[i][0],pay:r.pay,items:[r.trace]});
+    const el=document.getElementById('tr'+i); if(el) el.innerHTML = a>0?`${fmt(r.pay)}원<div class="how" style="text-align:right;font-weight:400"><span>공제 <span class="d">−${detailNumber(r.trace.self)}</span> (${r.why})</span></div>`:'0원'; });
   const h=s.inp, ip = g==='g5'?inpatient5(h,s.cover):inpatient(g,s.type,h);
   const any=h.g||h.b||h.room||(g==='g5'&&h.bs);
+  if(any)groups.push({id:'inpatient',part:'in',title:'입원',pay:ip.pay,items:ip.traces});
   $('#inCalc').innerHTML = !any ? '<div class="ln"><span>입원이 없으면 비워두세요</span></div>' : g==='g5' ? inCalc5(h,ip) :
     `<div class="ln"><span>급여 ${fmt(h.g)} × ${100-ip.r.rg*100}%</span><span class="num">${fmt(ip.gp)}</span></div>
      <div class="ln"><span>비급여 ${fmt(h.b)} × ${100-ip.r.rb*100}%</span><span class="num">${fmt(ip.bp)}</span></div>
@@ -390,7 +488,9 @@ function compute(){
   if(advSum && s.caps) advSum.textContent=`통원 회당 한도: 외래 ${fmt(s.caps.out)}원 · 처방 ${fmt(s.caps.rx)}원${s.caps.out!==250000||s.caps.rx!==50000?' (기본값에서 바꿈)':''} — 바꾸기`;
   const total=out+th+ip.pay,issues=[];
   if(pending)issues.push('5세대 급여 계산에는 공단부담금이 필요합니다. 0원이면 0을 입력하세요.');
-  if(document.querySelector('.in input[aria-invalid="true"]'))issues.push('금액은 0 이상의 숫자로 입력하세요. 최대 입력액은 1조원입니다.');
+  const invalid=!!document.querySelector('.in input[aria-invalid="true"]');
+  if(invalid)issues.push('금액은 0 이상의 숫자로 입력하세요. 최대 입력액은 1조원입니다.');
+  if(g!=='g5'&&h.room>0&&!h.days)issues.push('상급병실료 차액을 계산하려면 입원일수를 입력하세요.');
   const inpatientSelf=g==='g5'?h.g*.2:g==='g4'?h.g*.2:h.g*G.types[s.type].rg+h.b*G.types[s.type].rb;
   if(inpatientSelf>2000000)issues.push('입원 자기부담 연간 상한(200만원)에 영향을 받는 금액입니다. 연간 누적 내역을 약관과 함께 확인해야 합니다.');
   if(g==='g5'&&s.cover.severe&&h.big&&h.bs*.3>5000000)issues.push('중증 비급여 입원의 연간 자기부담 상한(500만원) 확인이 필요합니다.');
@@ -398,8 +498,11 @@ function compute(){
   pending=issues.length>0;
   const parts=[['out','통원',out],...(g!=='g2'&&g!=='g5'?[['three','비급여 3종',th]]:[]),['in','입원',ip.pay]];
   const cmpOpen = $('#cmpBox')?.open;
-  $('#summary').innerHTML = `<div><div style="font-size:.82rem;color:var(--muted)">예상 보험금 · ${G.name}${g==='g4'||g==='g5'?'':' '+G.types[s.type].name}</div><div class="big">${pending?'입력 확인 필요':fmt(total)+'원'}</div>${issues.length?`<ul class="calculation-issues">${issues.map(t=>`<li>${t}</li>`).join('')}</ul>`:''}</div>
+  const breakdownOpen=$('#breakdownBox')?.open??true,totals=traceTotals(groups);
+  $('#summary').innerHTML = `<div class="result-head"><div style="font-size:.82rem;color:var(--muted)">예상 보험금 · ${G.name}${g==='g4'||g==='g5'?'':' '+G.types[s.type].name}</div><div class="big">${pending?'입력 확인 필요':fmt(total)+'원'}</div>${issues.length?`<ul class="calculation-issues">${issues.map(t=>`<li>${t}</li>`).join('')}</ul>`:''}</div>
+    ${groups.length&&!pending?`<div class="result-overview"><div><span>입력 금액</span><b class="num">${fmt(totals.amount)}원</b></div><div><span>자기부담·한도 등</span><b class="num">${fmt(totals.amount-total)}원</b></div></div>`:''}
     <div class="sumrows">${parts.map(([k,l,v])=>`<div class="ln ${v?'':'zero'}"><span>${l}</span><span class="num">${fmt(v)}원</span></div>`).join('')}</div>
+    ${breakdownHtml(groups,totals,breakdownOpen,pending,invalid)}
     <details class="cmp" id="cmpBox" ${cmpOpen?'open':''}><summary>실제 받은 금액과 비교하기</summary><div class="cmpbody">
       ${parts.map(([k,l,v])=>{ const a=s.actual[k], has=a!==undefined&&a!==''; const d=toNum(a)-v;
         const pill=has?(d===0?'<span class="pill ok">일치</span>':`<span class="pill diff">${d>0?'+':''}${fmt(d)}</span>`):'';
@@ -437,6 +540,7 @@ function rulesHtml(){
 function renderAll(){ renderChoices(); renderInputs(); compute(); $('#rules').innerHTML=rulesHtml(); }
 
 document.addEventListener('click',e=>{
+  if(e.target.closest('#showBreakdown')){const box=$('#breakdownBox');if(box)box.open=true;$('#summary').scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'});return;}
   const gb=e.target.closest('[data-gen]'); if(gb){ state.gen=gb.dataset.gen; try{localStorage.setItem('silson-gen',state.gen)}catch(_){} renderAll(); return; }
   const tb=e.target.closest('[data-type]'); if(tb){ S().type=tb.dataset.type; renderAll(); return; }
   const add=e.target.closest('[data-add]'); if(add){ const s=S();
