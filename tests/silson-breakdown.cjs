@@ -26,11 +26,11 @@ const noRider=c.out5({grade:'1',g:0,b:300000,severe:true});equal(noRider.lines[0
 const nhi=c.out5({grade:'2',g:200000,fund:300000,b:0},cover);equal(nhi.lines[0].trace.candidates.length,3);equal(nhi.lines[0].trace.self,80000);balance(nhi.lines.map(x=>x.trace),nhi.pay);
 const room=c.inpatient('g3','s2',{g:0,b:0,room:1000000,days:2});equal(room.traces[0].self,500000);equal(room.traces[0].limitCut,300000);balance(room.traces,room.pay);
 const noDays=c.inpatient('g3','s2',{g:100,b:0,room:1000000,days:0});equal(noDays.traces[1].waiting,1000000);balance(noDays.traces,noDays.pay);
-const ip5=c.inpatient5({g:0,b:10000000,bs:100000,big:false},cover);equal(ip5.traces[1].limitCut,2000000);balance(ip5.traces,ip5.pay);
+const ip5=c.inpatient5({g:0,b:10000000,bs:100000,severe:true,big:false},cover);equal(ip5.traces[1].limitCut,2000000);balance(ip5.traces,ip5.pay);
 for(let i=1;i<=1000;i++){
   const g=(i*17011)%10000000,b=(i*49123)%10000000;
   for(const result of [c.out4({grade:'g',g,b}),c.out23('g3','s2',{grade:'2',g,b},{out:250000,rx:50000}),c.out5({grade:'4',g,fund:g*2,b,severe:i%2===0},cover)])balance(result.lines.map(x=>x.trace),result.pay);
-  for(const result of [c.inpatient('g2','c',{g,b,room:150001,days:3}),c.inpatient5({g,b,bs:135791,big:i%2===0},cover)])balance(result.traces,result.pay);
+  for(const result of [c.inpatient('g2','c',{g,b,room:150001,days:3}),c.inpatient5({g,b,bs:135791,severe:true,big:i%2===0},cover)])balance(result.traces,result.pay);
 }
 const odd=c.three('g4',123457);balance([odd.trace],odd.pay);assert(c.traceItemHtml(odd.trace).includes('원 미만 버림'));checks++;
 assert(!c.traceItemHtml(noRider.lines[0].trace).includes('실제 차감한 자기부담금'));checks++;

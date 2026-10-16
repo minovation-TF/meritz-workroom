@@ -24,10 +24,11 @@ equal(c.out5({grade:'1',g:15000,fund:0,b:0},cover).pay,0);
 equal(c.out5({grade:'1',g:0,b:300000,severe:true},cover).pay,200000);
 equal(c.out5({grade:'1',g:0,b:300000,severe:false},cover).pay,150000);
 equal(c.out5({grade:'1',g:0,b:300000,severe:true}).pay,0);
-equal(c.inpatient5({g:350000,b:230000,bs:200000,big:false},cover).pay,535000);
+equal(c.inpatient5({g:350000,b:230000,bs:200000,severe:true,big:false},cover).pay,535000);
 equal(c.inpatient5({g:0,b:10000000,bs:0,big:false},cover).pay,3000000);
 equal(c.inpatient5({g:0,b:10000000,bs:0,big:true},cover).pay,5000000);
 equal(c.inpatient5({g:0,b:100000,bs:100000,big:true}).pay,0);
 for(const [raw,value] of [['12,000원',12000],['1만5천',15000],['12만3000',123000],['1.5만',15000],['1억2천',100002000],['0',0],['',0],['12.9',12],['-1000',null],['1e6',null],['abc123',null],['1만2만',null],['1000000000001',null]])equal(c.parseAmount(raw),value);
 for(let i=0;i<1000;i++){const g=(i*17011)%10000000,b=(i*49123)%10000000;for(const r of [c.out4({grade:'g',g,b}),c.out23('g3','s2',{grade:'2',g,b},{out:250000,rx:50000}),c.out5({grade:'4',g,fund:g*4,b,severe:i%2===0},cover)]){assert(Number.isSafeInteger(r.pay)&&r.pay>=0&&r.pay<=g+b);checks++;}}
-console.log(JSON.stringify({result:'passed',checks,scope:'Per-claim basic deductions; annual accumulations and separate 5th-generation benefits excluded.'}));
+console.log(JSON.stringify({result:'passed',checks,scope:'Per-claim basic deductions; annual inpatient ceilings covered by silson-annual.cjs; separate fifth-generation benefits excluded.'}));
+

@@ -127,7 +127,7 @@ details.rulesbox summary{cursor:pointer;font-weight:600}
 .adv{font-size:.84rem}
 .adv summary{cursor:pointer;color:var(--muted)}
 .adv .pairs{margin-top:8px}
-</style><title>실비계산기 · WORKROOM</title><link rel="stylesheet" href="assets/silson-calculator.css?v=20261016-breakdown"></head><body>
+</style><title>실비계산기 · WORKROOM</title><link rel="stylesheet" href="assets/silson-calculator.css?v=20261016-annual"></head><body>
 
 
 
@@ -135,7 +135,7 @@ details.rulesbox summary{cursor:pointer;font-weight:600}
 <header class="calculator-header"><a class="home-link" href="./" title="홈으로 돌아가기" aria-label="홈으로 돌아가기"><svg viewBox="0 0 28 28" aria-hidden="true"><path d="M3 3h22v22H3zM14 3v22m0-11h11"/></svg></a><span class="calculator-label">실비계산기</span><a class="calculator-ci" href="./" aria-label="WORKROOM 홈으로"><img src="assets/meritz-ci.png" alt="meritz" width="1190" height="178"></a></header><main class="wrap">
   <header>
     <p class="eyebrow">EVERYDAY TOOLS / INSURANCE</p><h1>실비계산기<span class="title-dot">.</span></h1>
-    <p class="sub">가입한 실손 유형과 영수증 금액으로 건별 기본 공제 후 예상액을 확인하세요.</p><p class="scope-note">건강보험 적용 진료의 일반 실손 2~5세대 기준입니다. 연간 누적 한도·자기부담 상한과 이전 지급액은 반영하지 않습니다. 1세대·유병력자·노후·단체 실손은 계산 대상이 아닙니다. 전환·재가입했다면 현재 약관의 세대를 선택하세요.</p>
+    <p class="sub">가입한 실손 유형과 영수증 금액으로 공제·입원 연간 자기부담 상한을 반영한 예상액을 확인하세요.</p><p class="scope-note">건강보험 적용 진료의 일반 실손 2~5세대 기준입니다. 2·3세대 기본 입원 200만원, 5세대 산정특례 중증 비급여의 종합·상급종합병원 입원 500만원 자기부담 상한을 반영합니다. 앞선 입원의 누적 자기부담금을 입력할 수 있으며, 미입력 시 0원으로 계산합니다. 연간 보상한도·기지급 보험금은 별도 확인이 필요합니다. 1세대·유병력자·노후·단체 실손은 계산 대상이 아닙니다. 전환·재가입했다면 현재 약관의 세대를 선택하세요.</p>
   </header>
 
   <section class="panel" aria-labelledby="s1">
@@ -183,12 +183,13 @@ details.rulesbox summary{cursor:pointer;font-weight:600}
         <h2 id="h-in">입원</h2>
         <p class="hint" id="inHint"></p>
         <div class="pairs" id="inFields"></div>
+        <div class="annual-inputs" id="annualInputs"></div>
         <div class="calcbox" id="inCalc"></div>
       </section>
     </div>
 
     <aside class="col" aria-label="예상 보험금">
-      <div class="result-sticky"><section class="panel summary" id="summary" aria-live="polite"></section><p class="result-note">약관상 보장 대상 금액을 넣었을 때의 기본 공제 예상액입니다. 연간 한도·이전 청구·보상 제외 항목·비례보상 등에 따라 실제 지급액이 달라집니다.</p></div>
+      <div class="result-sticky"><section class="panel summary" id="summary" aria-live="polite"></section><p class="result-note">약관상 보장 대상 금액을 넣었을 때의 기본 공제 예상액입니다. 입력한 누적 자기부담금으로 연간 상한을 반영합니다. 연간 보상한도·보상 제외 항목·비례보상 등에 따라 실제 지급액이 달라집니다.</p></div>
     </aside>
   </div>
 
@@ -197,7 +198,7 @@ details.rulesbox summary{cursor:pointer;font-weight:600}
     <div class="rules" id="rules"></div>
   </details>
 
-  <p class="foot">기준 확인: 2026.10.16. 5세대 비급여 3종·상급병실료 차액은 계산하지 않습니다. 3·4세대 비급여 3종은 해당 특약 가입 시 1회 금액만 입력하세요. 참고용 계산입니다. 연간 보상한도, 통원·치료 횟수 한도, 입원 자기부담 연간 상한(200만원), 보상하지 않는 항목, 여러 보험 가입 시 비례보상은 반영하지 않습니다. 실제 지급액은 가입 약관과 심사 결과에 따릅니다.</p><details class="rulesbox sources"><summary>확인한 공식 자료</summary><ul><li><a href="https://www.fsc.go.kr/no010101/86831" target="_blank" rel="noopener noreferrer">금융위원회 · 5세대 실손 출시 및 보장 기준 (2026.5.6.)</a></li><li><a href="https://www.fsc.go.kr/no010101/76157" target="_blank" rel="noopener noreferrer">금융위원회 · 4세대 실손 출시 및 3·4세대 공제 비교 (2021.6.29.)</a></li><li><a href="https://www.fsc.go.kr/po010106/70570" target="_blank" rel="noopener noreferrer">금융위원회 · 표준형 실손 출시 (2013.1.1.)</a></li></ul></details>
+  <p class="foot">기준 확인: 2026.10.16. 5세대 비급여 3종·상급병실료 차액은 계산하지 않습니다. 3·4세대 비급여 3종은 해당 특약 가입 시 1회 금액만 입력하세요. 참고용 계산입니다. 2·3세대 기본 입원 자기부담 합계는 연간 200만원, 5세대 산정특례 중증 비급여의 종합·상급종합병원 입원은 연간 500만원 상한을 적용합니다. 누적액은 계약일·매년 계약해당일 기준으로 같은 보장종목의 금액만 입력하세요. 통원 공제, 상급병실료 차액과 별도 3종 특약은 상한 대상에서 제외합니다. 4세대 급여 입원 자기부담 상한, 연간 보상한도, 통원·치료 횟수, 보상하지 않는 항목, 여러 보험 가입 시 비례보상은 반영하지 않습니다. 실제 지급액은 가입 약관과 심사 결과에 따릅니다.</p><details class="rulesbox sources"><summary>확인한 공식 자료</summary><ul><li><a href="https://www.fsc.go.kr/no010101/86831" target="_blank" rel="noopener noreferrer">금융위원회 · 5세대 실손 출시 및 보장 기준 (2026.5.6.)</a></li><li><a href="https://www.fsc.go.kr/no010101/76157" target="_blank" rel="noopener noreferrer">금융위원회 · 4세대 실손 출시 및 3·4세대 공제 비교 (2021.6.29.)</a></li><li><a href="https://www.fsc.go.kr/po010106/70570" target="_blank" rel="noopener noreferrer">금융위원회 · 표준형 실손 출시 (2013.1.1.)</a></li><li><a href="https://www.idbins.com/pcweb/bizxpress/pdc/hc/__etc/%EC%8B%A4%EC%86%90%EC%9D%98%EB%A3%8C%EB%B9%84%EB%B3%B4%ED%97%982101.pdf" target="_blank" rel="noopener noreferrer">DB손해보험 · 3세대 실손 약관 (입원 200만원 상한·제외 항목)</a></li><li><a href="https://direct.samsungfire.com/docs/realloss.pdf" target="_blank" rel="noopener noreferrer">삼성화재 · 5세대 실손 약관 (중증 비급여 입원 500만원 상한)</a></li></ul></details>
 </main>
 <div class="mbar" aria-label="예상 보험금 바로가기"><span style="font-size:.86rem;color:var(--muted)">예상 보험금</span><span class="big" id="mTotal">0원</span><button class="btn" id="showBreakdown" type="button">계산 내역</button></div>
 
@@ -210,13 +211,13 @@ const GENS = {
       types:{'4':{rg:.2, rb:.3, name:'4세대', desc:'급여 80% · 비급여 70% 보상'}},
       grades:[{v:'c',label:'의원·병원',fix:10000},{v:'g',label:'종합·상급종합병원',fix:20000}], threeFix:30000},
   g3:{name:'3세대', when:'2017년 4월 ~ 2021년 6월 가입',
-      types:{s2:{rg:.1, rb:.2, name:'선택형Ⅱ', desc:'급여 90% · 비급여 80% 보상'},
-             std:{rg:.2, rb:.2, name:'표준형', desc:'급여·비급여 80% 보상'}},
+      types:{s2:{rg:.1, rb:.2, name:'선택형Ⅱ', desc:'급여 10% · 비급여 20% 자기부담'},
+             std:{rg:.2, rb:.2, name:'표준형', desc:'급여 20% · 비급여 20% 자기부담'}},
       grades:[{v:'1',label:'의원',fix:10000},{v:'2',label:'병원·종합병원',fix:15000},{v:'3',label:'상급종합병원',fix:20000}], threeFix:20000},
   g2:{name:'2세대', when:'2009년 10월 ~ 2017년 3월 가입',
-      types:{a:{rg:.1, rb:.1, flat:true, name:'90% 보상형', desc:'자기부담 10% · 통원은 정액만 공제'},
-             b:{rg:.2, rb:.2, name:'표준형 (2013.1~)', desc:'자기부담 20%'},
-             c:{rg:.1, rb:.2, name:'선택형Ⅱ (2015.9~)', desc:'급여 90% · 비급여 80% 보상'}},
+      types:{a:{rg:.1, rb:.1, flat:true, name:'90% 보상형', desc:'급여 10% · 비급여 10% 자기부담 (입원) / 통원 정액 공제'},
+             b:{rg:.2, rb:.2, name:'표준형 (2013.1~)', desc:'급여 20% · 비급여 20% 자기부담'},
+             c:{rg:.1, rb:.2, name:'선택형Ⅱ (2015.9~)', desc:'급여 10% · 비급여 20% 자기부담'}},
       grades:[{v:'1',label:'의원',fix:10000},{v:'2',label:'병원·종합병원',fix:15000},{v:'3',label:'상급종합병원',fix:20000}], threeFix:0}
 };
 const floor = n => Math.floor(n + 1e-9);
@@ -275,19 +276,34 @@ function three(gen,amt){
   return {pay,ded:d,why:d===fix?`최소공제 ${fmt(fix)}`:'30%',
     trace:traceDeduction('비급여 3종',amt,d,pay,Infinity,{candidates:[{label:'비율 공제',parts:[[amt,.3]]},{label:'최소공제',value:fix}],reason:traceChoice(fix,amt*.3)})};
 }
-/* 입원: 정률 + 상급병실료 차액 50% (1일 평균 10만원 한도) */
+function annualSelfLimit(base,limit,prior=0){
+  prior=Math.max(0,Number(prior)||0);
+  const remaining=Math.max(0,limit-prior),self=Math.min(base,remaining);
+  return {base,limit,prior,remaining,self,extra:Math.max(0,base-self),after:Math.min(limit,prior+self)};
+}
+function traceAnnual(label,amount,annual,candidates,extra={}){
+  return traceDeduction(label,amount,annual.base,amount-annual.self,Infinity,{
+    ...extra,candidates,annual,self:annual.self,rounding:0,
+    reason:extra.reason||'비율로 계산한 자기부담금에 남은 연간 자기부담 상한을 적용합니다.'});
+}
+/* 입원: 2·3세대 기본 입원의 급여·비급여 합계에 연간 200만원. 병실 차액은 별도. */
 function inpatient(gen,type,h){
   const r=GENS[gen].types[type];
-  const gp=h.g*(1-r.rg), bp=h.b*(1-r.rb);
+  const gp=h.g*(1-r.rg), bp=h.b*(1-r.rb),eligible=gen==='g2'||gen==='g3';
+  const annual=eligible?annualSelfLimit(h.g*r.rg+h.b*r.rb,2000000,h.priorSelf):null;
   let room=0, perDay=0;
   if(h.room>0 && h.days>0){ perDay=Math.min(h.room*.5/h.days,100000); room=perDay*h.days; }
   const traces=[];
-  if(h.g>0)traces.push(traceDeduction('급여',h.g,h.g-gp,gp,Infinity,{candidates:[{label:'자기부담금',parts:[[h.g,r.rg]]}],reason:'입원 급여는 선택한 유형의 자기부담률을 적용합니다. 정액 공제는 없습니다.'}));
-  if(h.b>0)traces.push(traceDeduction('비급여',h.b,h.b-bp,bp,Infinity,{candidates:[{label:'자기부담금',parts:[[h.b,r.rb]]}],reason:'입원 비급여는 선택한 유형의 자기부담률을 적용합니다. 정액 공제는 없습니다.'}));
+  if(eligible && h.g+h.b>0)traces.push(traceAnnual('급여·비급여 합산',h.g+h.b,annual,[{label:'기본 자기부담금',parts:[[h.g,r.rg],[h.b,r.rb]]}],{
+    inputParts:[['급여',h.g],['비급여',h.b]],reason:'기본 입원의 급여·비급여 자기부담금을 합산하여 연간 200만원 상한을 적용합니다. 상급병실료 차액과 별도 3종 특약은 제외합니다.'}));
+  else{
+    if(h.g>0)traces.push(traceDeduction('급여',h.g,h.g-gp,gp,Infinity,{candidates:[{label:'자기부담금',parts:[[h.g,r.rg]]}],reason:'입원 급여는 선택한 유형의 자기부담률을 적용합니다. 정액 공제는 없습니다.'}));
+    if(h.b>0)traces.push(traceDeduction('비급여',h.b,h.b-bp,bp,Infinity,{candidates:[{label:'자기부담금',parts:[[h.b,r.rb]]}],reason:'입원 비급여는 선택한 유형의 자기부담률을 적용합니다. 정액 공제는 없습니다.'}));
+  }
   if(h.room>0)traces.push(h.days>0?traceDeduction('상급병실료 차액',h.room,h.room*.5,room,h.days*100000,{
-    candidates:[{label:'자기부담금',parts:[[h.room,.5]]}],notes:[['입원 기간',`${fmt(h.days)}일`]],reason:'차액의 50%를 보상하며, 입원 기간 하루 평균 10만원 한도를 적용합니다.'})
+    candidates:[{label:'자기부담금',parts:[[h.room,.5]]}],notes:[['입원 기간',`${fmt(h.days)}일`]],reason:'차액의 50%를 보상하며, 입원 기간 하루 평균 10만원 한도를 적용합니다. 연간 200만원 자기부담 상한에는 포함하지 않습니다.'})
     :traceUnavailable('상급병실료 차액',h.room,'입원일수를 입력하면 50% 보상과 하루 평균 10만원 한도를 계산합니다.',true));
-  return {gp,bp,room,perDay,r,traces,pay:floor(gp+bp+room)};
+  return {gp,bp,room,perDay,r,traces,annual,annualExtra:annual?.extra||0,pay:floor((annual?h.g+h.b-annual.self:gp+bp)+room)};
 }
 /* 5세대 통원: 급여는 max(최소공제, 급여 × max(20%, 건보 본인부담률)), 비급여는 중증/비중증 따로. 각각 회당 20만원 */
 function out5(v,cover={severe:false,mild:false}){
@@ -306,17 +322,22 @@ function out5(v,cover={severe:false,mild:false}){
       :traceUnavailable(label,v.b,'해당 비급여 특약이 선택되지 않아 계산에서 제외했습니다. 가입 여부를 확인하세요.')});}
   return {pay,lines,pending};
 }
-/* 5세대 일반 입원: 연간 누적 상한은 제외. 병·의원 비중증 회당 300만원 한도 적용. */
+/* 5세대 입원: 산정특례 중증 비급여 + 종합/상급종합병원은 자기부담 연간 500만원. */
 function inpatient5(h,cover={severe:false,mild:false}){
-  const gp=h.g*.8,sp=cover.severe?h.bs*.7:0;
+  const gp=h.g*.8,eligible=!!(cover.severe&&h.severe&&h.big);
+  const annual=eligible?annualSelfLimit(h.bs*.3,5000000,h.priorSevereSelf):null;
+  const severePending=!!(cover.severe&&h.bs>0&&!h.severe);
+  const sp=cover.severe&&!severePending?(annual?h.bs-annual.self:h.bs*.7):0;
   const mildLimit=h.big?Infinity:3000000,mp=cover.mild?Math.min(h.b*.5,mildLimit):0;
   const traces=[];
   if(h.g>0)traces.push(traceDeduction('급여',h.g,h.g-gp,gp,Infinity,{candidates:[{label:'자기부담금',parts:[[h.g,.2]]}],reason:'입원 급여는 20% 자기부담금을 공제합니다. 정액 공제는 없습니다.'}));
-  if(h.bs>0)traces.push(cover.severe?traceDeduction('중증 비급여',h.bs,h.bs-sp,sp,Infinity,{candidates:[{label:'자기부담금',parts:[[h.bs,.3]]}],reason:'선택한 중증 비급여 특약의 입원 자기부담률 30%를 적용합니다.'})
-    :traceUnavailable('중증 비급여',h.bs,'중증 비급여 특약이 선택되지 않아 계산에서 제외했습니다. 가입 여부를 확인하세요.'));
+  if(h.bs>0)traces.push(!cover.severe?traceUnavailable('중증 비급여',h.bs,'중증 비급여 특약이 선택되지 않아 계산에서 제외했습니다. 가입 여부를 확인하세요.')
+    :severePending?traceUnavailable('중증 비급여',h.bs,'산정특례 대상 질환·관련 합병증 치료비인지 확인하고 체크하세요. 그 외 금액은 비중증 비급여 칸에 입력하세요.',true)
+    :annual?traceAnnual('중증 비급여',h.bs,annual,[{label:'기본 자기부담금',parts:[[h.bs,.3]]}],{reason:'산정특례 대상 질환·관련 합병증으로 종합병원·상급종합병원에 입원한 중증 비급여는 연간 자기부담 500만원 상한을 적용합니다.'})
+    :traceDeduction('중증 비급여',h.bs,h.bs*.3,sp,Infinity,{candidates:[{label:'자기부담금',parts:[[h.bs,.3]]}],reason:'입원 자기부담률 30%를 적용합니다. 종합병원·상급종합병원 입원이 아니므로 연간 500만원 상한은 적용하지 않습니다.'}));
   if(h.b>0)traces.push(cover.mild?traceDeduction('비중증 비급여',h.b,h.b*.5,mp,mildLimit,{candidates:[{label:'자기부담금',parts:[[h.b,.5]]}],reason:h.big?'입원 자기부담률 50%를 적용합니다. 종합·상급종합병원은 회당 300만원 한도를 적용하지 않습니다.':'입원 자기부담률 50%와 병·의원 입원 회당 300만원 한도를 적용합니다.'})
     :traceUnavailable('비중증 비급여',h.b,'비중증 비급여 특약이 선택되지 않아 계산에서 제외했습니다. 가입 여부를 확인하세요.'));
-  return {gp,sp,mp,traces,sevSelf:h.bs*.3,capped:false,room:0,perDay:0,mildCapped:cover.mild&&h.b*.5>mildLimit,pay:floor(gp+sp+mp)};
+  return {gp,sp,mp,traces,annual,pending:severePending,sevSelf:annual?annual.self:h.bs*.3,capped:!!annual?.extra,annualExtra:annual?.extra||0,room:0,perDay:0,mildCapped:cover.mild&&h.b*.5>mildLimit,pay:floor(gp+sp+mp)};
 }
 </script>
 
@@ -325,7 +346,7 @@ const blank = gen => ({
   type:Object.keys(GENS[gen].types)[0],
   cover:{severe:false,mild:false}, caps:{out:250000,rx:50000},
   visits:[{kind:'out',grade:GENS[gen].grades[0].v,g:0,b:0}],
-  three:[0,0,0], inp:{days:0,g:0,b:0,bs:0,room:0,big:false}, actual:{}
+  three:[0,0,0], inp:{days:0,g:0,b:0,bs:0,room:0,big:false,severe:false,priorSelf:0,priorSevereSelf:0}, actual:{}
 });
 const EXAMPLES = {
   g5:{cover:{severe:true,mild:true},visits:[{kind:'out',grade:'1',g:15000,fund:35000,b:80000,severe:false},{kind:'out',grade:'4',g:120000,fund:2280000,b:300000,severe:true}],three:[0,0,0],inp:{days:5,g:350000,b:230000,bs:0,room:0,big:false}},
@@ -401,23 +422,27 @@ function renderInputs(){
   $('#inHint').textContent = g==='g5' ? '입원 1건의 영수증 합계를 넣으세요. 급여 80%, 중증 비급여 70%, 비중증 비급여 50%를 보상합니다.'
     : `입원 1건의 영수증 합계를 넣으세요. 급여 ${100-r.rg*100}%, 비급여 ${100-r.rb*100}%를 보상합니다.`;
   const fields = g==='g5' ? [['g','급여 본인부담','원',''],
-    ['bs','중증 비급여','원','암·뇌혈관·심장·희귀난치 치료분'],['b','비중증 비급여','원','그 외 비급여, 상급병실 차액 제외'],] : [['days','입원일수','일','상급병실료 계산에 필요'],['g','급여 본인부담','원',''],
+    ['bs','중증 비급여','원','산정특례 대상 질환·관련 합병증 치료분'],['b','비중증 비급여','원','그 외 비급여, 상급병실 차액 제외'],] : [['days','입원일수','일','상급병실료 계산에 필요'],['g','급여 본인부담','원',''],
     ['b','비급여',`원`, g==='g2'?'상급병실 차액 제외':'상급병실 차액·3종 제외'],['room','상급병실료 차액','원','1·2인실 등 병실 차액 합계']];
   $('#inFields').innerHTML = fields.map(([k,l,u,sub])=>`<div><label class="lbl" for="in-${k}">${l}${sub?` <small>${sub}</small>`:''}</label>${
     k==='days'?`<span class="in"><input id="in-days" data-i="days" inputmode="numeric" autocomplete="off" value="${s.inp.days||''}" placeholder="0"><span class="unit">일</span></span>`
     :moneyInput('in-'+k,s.inp[k],`data-i="${k}"`)}</div>`).join('')
-    + (g==='g5'?`<label class="sev" style="grid-column:1/-1"><input type="checkbox" id="in-big" data-i="big" ${s.inp.big?'checked':''}> 종합병원·상급종합병원 입원 (중증 비급여 구분 / 비중증 입원 회당 300만원 한도 미적용)</label>`:'');
+    + (g==='g5'?`<label class="sev" style="grid-column:1/-1"><input type="checkbox" id="in-severe" data-i="severe" ${s.inp.severe?'checked':''}> 중증 비급여는 건강보험 산정특례 대상 질환·관련 합병증 치료비입니다</label><label class="sev" style="grid-column:1/-1"><input type="checkbox" id="in-big" data-i="big" ${s.inp.big?'checked':''}> 종합병원·상급종합병원 입원 (중증 자기부담 500만원 상한 / 비중증 회당 300만원 한도 미적용)</label>`:'');
+  const oldGen=g==='g2'||g==='g3',annualKey=oldGen?'priorSelf':'priorSevereSelf';
+  $('#annualInputs').hidden=g==='g4';
+  $('#annualInputs').innerHTML=g==='g4'?'':`<h3>입원 연간 자기부담 상한 <span>${oldGen?'200':'500'}만원</span></h3><p class="hint">${oldGen?'기본 입원의 급여·비급여 자기부담금 합계에 적용합니다. 통원, 상급병실료 차액'+(g==='g3'?'과 별도 3종 특약':'')+'은 제외합니다.':'중증 특약 가입 + 산정특례 대상 치료 + 종합·상급종합병원 입원인 경우만 적용합니다. 급여·비중증·별도 3종·상급병실료 차액·통원 공제는 포함하지 마세요.'}</p><div><label class="lbl" for="in-${annualKey}">앞선 입원에서 이미 부담한 ${oldGen?'기본 입원':'상한 대상 중증 비급여'} 자기부담금</label>${moneyInput('in-'+annualKey,s.inp[annualKey],`data-i="${annualKey}" aria-describedby="annualHint"`)}</div><p class="hint" id="annualHint">이번 입원 금액은 제외하세요. 계약일·매년 계약해당일부터 1년인 동일 보험연도, 같은 보장종목(상해/질병 등)의 상한 대상 누적액만 입력하세요. 미입력은 0원으로 계산하며, 앞선 입원 보험금은 이번 예상액에 더하지 않습니다.</p>`;
 }
 
 const detailNumber=n=>Number(n.toFixed(2)).toLocaleString('ko-KR',{maximumFractionDigits:2});
 const detailMoney=n=>(Math.abs(n-Number(n.toFixed(2)))>1e-7?'약 ':'')+detailNumber(n)+'원';
 const escapeDetail=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function traceTotals(groups){
-  const totals={amount:0,self:0,limitCut:0,excluded:0,waiting:0,rounding:0,pay:0};
+  const totals={amount:0,self:0,limitCut:0,excluded:0,waiting:0,rounding:0,pay:0,annualExtra:0};
   for(const group of groups){
     const rawPay=group.items.reduce((n,item)=>n+item.pay,0);
     group.rounding=Math.max(0,rawPay-group.pay);
     totals.pay+=group.pay;totals.rounding+=group.rounding;
+    for(const item of group.items)totals.annualExtra+=item.annual?.extra||0;
     for(const item of group.items)for(const key of ['amount','self','limitCut','excluded','waiting','rounding'])totals[key]+=item[key]||0;
   }
   return totals;
@@ -442,6 +467,11 @@ function traceItemHtml(item){
     }
     rows.push(detailRow('적용 공제 기준액',detailMoney(item.ded)),`<p class="detail-reason">${escapeDetail(item.reason||'')}</p>`);
     if(item.ded>item.amount)rows.push(`<p class="detail-reason">공제 기준액이 입력 금액보다 커서 입력 금액까지만 차감하며, 보험금은 0원입니다.</p>`);
+    if(item.annual){const a=item.annual;rows.push(
+      detailRow('연간 자기부담 상한',detailMoney(a.limit)),detailRow('앞선 입원 누적 자기부담금',detailMoney(a.prior)),
+      detailRow('이번 입원 전 남은 자기부담 한도',`${detailMoney(a.limit)} − ${detailMoney(Math.min(a.prior,a.limit))} = ${detailMoney(a.remaining)}`),
+      detailRow('상한 적용으로 보험금 추가',a.extra>0?'+'+detailMoney(a.extra):'0원','detail-benefit'),
+      detailRow('이번 입원 후 상한 대상 누적액',detailMoney(a.after)));}
     rows.push(detailRow('실제 차감한 자기부담금','−'+detailMoney(item.self),'detail-deduct'));
     for(const [label,value] of item.notes||[])rows.push(detailRow(label,value));
     if(Number.isFinite(item.limit))rows.push(detailRow(item.label==='상급병실료 차액'?'입원 기간 합산 보상한도':'건별 보상한도',detailMoney(item.limit)),
@@ -455,9 +485,9 @@ function breakdownHtml(groups,totals,open,pending,invalid){
   if(invalid)return '<p class="breakdown-empty">잘못 입력한 금액을 수정하면 계산 내역이 표시됩니다.</p>';
   if(!groups.length)return '<p class="breakdown-empty">금액을 입력하면 공제 기준과 차감 내역이 여기에 표시됩니다.</p>';
   const ledger=pending?'<p class="detail-reason">입력 확인이 필요한 항목이 있습니다. 아래 내역은 현재 입력값으로 계산한 부분이며 전체 보험금은 확정하지 않습니다.</p>':
-    `<div class="breakdown-ledger">${detailRow('입력한 보장 대상 금액',detailMoney(totals.amount))}${detailRow('자기부담금 합계','−'+detailMoney(totals.self),'detail-deduct')}${totals.limitCut>0?detailRow('보상한도 초과 차감','−'+detailMoney(totals.limitCut),'detail-deduct'):''}${totals.excluded>0?detailRow('특약 미선택 제외','−'+detailMoney(totals.excluded),'detail-deduct'):''}${totals.rounding>1e-7?detailRow('보험금 원 미만 버림','−'+detailMoney(totals.rounding)):''}${detailRow('예상 보험금 합계',detailMoney(totals.pay),'detail-pay')}</div>`;
+    `<div class="breakdown-ledger">${detailRow('입력한 보장 대상 금액',detailMoney(totals.amount))}${detailRow('자기부담금 합계 (상한 반영)','−'+detailMoney(totals.self),'detail-deduct')}${totals.annualExtra>0?`<p class="detail-reason detail-benefit">위 자기부담금은 연간 상한으로 ${detailMoney(totals.annualExtra)} 줄어든 금액입니다.</p>`:''}${totals.limitCut>0?detailRow('보상한도 초과 차감','−'+detailMoney(totals.limitCut),'detail-deduct'):''}${totals.excluded>0?detailRow('특약 미선택 제외','−'+detailMoney(totals.excluded),'detail-deduct'):''}${totals.rounding>1e-7?detailRow('보험금 원 미만 버림','−'+detailMoney(totals.rounding)):''}${detailRow('예상 보험금 합계',detailMoney(totals.pay),'detail-pay')}</div>`;
   return `<details class="calculation-breakdown" id="breakdownBox" ${open?'open':''}><summary>계산 내역 보기 <span>입력액·공제·한도</span></summary><div class="breakdown-body">${ledger}${groups.map(group=>
-    `<section class="detail-group"><h3><span>${escapeDetail(group.title)}</span><span class="num">${group.items.some(item=>item.pending)?'입력 확인 필요':detailMoney(group.pay)}</span></h3>${group.items.map(traceItemHtml).join('')}${group.rounding>1e-7?detailRow('입원 합계의 원 미만 버림','−'+detailMoney(group.rounding)):''}</section>`).join('')}<p class="breakdown-scope">연간 누적 한도·자기부담 상한·이전 청구액·비례보상은 이 내역에 반영하지 않습니다.</p></div></details>`;
+    `<section class="detail-group"><h3><span>${escapeDetail(group.title)}</span><span class="num">${group.items.some(item=>item.pending)?'입력 확인 필요':detailMoney(group.pay)}</span></h3>${group.items.map(traceItemHtml).join('')}${group.rounding>1e-7?detailRow('입원 합계의 원 미만 버림','−'+detailMoney(group.rounding)):''}</section>`).join('')}<p class="breakdown-scope">2·3세대 기본 입원 200만원, 5세대 산정특례 중증 비급여 종합·상급종합병원 입원 500만원 자기부담 상한을 입력한 누적액에 따라 반영했습니다. 누적액 미입력은 0원입니다. 연간 보상한도·4세대 급여 입원 상한·기지급 보험금·비례보상은 별도 확인하세요.</p></div></details>`;
 }
 
 function compute(){
@@ -476,6 +506,7 @@ function compute(){
     if(a>0)groups.push({id:'three-'+i,part:'three',title:THREE[i][0],pay:r.pay,items:[r.trace]});
     const el=document.getElementById('tr'+i); if(el) el.innerHTML = a>0?`${fmt(r.pay)}원<div class="how" style="text-align:right;font-weight:400"><span>공제 <span class="d">−${detailNumber(r.trace.self)}</span> (${r.why})</span></div>`:'0원'; });
   const h=s.inp, ip = g==='g5'?inpatient5(h,s.cover):inpatient(g,s.type,h);
+  pending ||= !!ip.pending;
   const any=h.g||h.b||h.room||(g==='g5'&&h.bs);
   if(any)groups.push({id:'inpatient',part:'in',title:'입원',pay:ip.pay,items:ip.traces});
   $('#inCalc').innerHTML = !any ? '<div class="ln"><span>입원이 없으면 비워두세요</span></div>' : g==='g5' ? inCalc5(h,ip) :
@@ -483,17 +514,17 @@ function compute(){
      <div class="ln"><span>비급여 ${fmt(h.b)} × ${100-ip.r.rb*100}%</span><span class="num">${fmt(ip.bp)}</span></div>
      ${h.room>0?(h.days>0?`<div class="ln"><span>상급병실 ${fmt(h.room)} × 50% ÷ ${h.days}일 = 하루 ${fmt(ip.perDay)}${ip.perDay>=100000?' (하루 10만원 한도)':''}</span><span class="num">${fmt(ip.room)}</span></div>`
        :`<div class="ln" style="color:var(--deduct)"><span>입원일수를 넣어야 상급병실료가 계산됩니다</span><span class="num">0</span></div>`):''}
+     ${annualCalcHtml(ip.annual)}
      <div class="ln tot"><span>입원 보험금</span><span class="num">${fmt(ip.pay)}원</span></div>`;
   const advSum=document.querySelector('#advBox summary');
   if(advSum && s.caps) advSum.textContent=`통원 회당 한도: 외래 ${fmt(s.caps.out)}원 · 처방 ${fmt(s.caps.rx)}원${s.caps.out!==250000||s.caps.rx!==50000?' (기본값에서 바꿈)':''} — 바꾸기`;
   const total=out+th+ip.pay,issues=[];
-  if(pending)issues.push('5세대 급여 계산에는 공단부담금이 필요합니다. 0원이면 0을 입력하세요.');
+  if(groups.some(group=>group.part==='out'&&group.items.some(item=>item.pending)))issues.push('5세대 급여 계산에는 공단부담금이 필요합니다. 0원이면 0을 입력하세요.');
+  if(ip.pending)issues.push('중증 비급여는 산정특례 대상 질환·관련 합병증 치료비인지 확인하고 체크하세요. 그 외 금액은 비중증 비급여 칸에 입력하세요.');
   const invalid=!!document.querySelector('.in input[aria-invalid="true"]');
   if(invalid)issues.push('금액은 0 이상의 숫자로 입력하세요. 최대 입력액은 1조원입니다.');
   if(g!=='g5'&&h.room>0&&!h.days)issues.push('상급병실료 차액을 계산하려면 입원일수를 입력하세요.');
-  const inpatientSelf=g==='g5'?h.g*.2:g==='g4'?h.g*.2:h.g*G.types[s.type].rg+h.b*G.types[s.type].rb;
-  if(inpatientSelf>2000000)issues.push('입원 자기부담 연간 상한(200만원)에 영향을 받는 금액입니다. 연간 누적 내역을 약관과 함께 확인해야 합니다.');
-  if(g==='g5'&&s.cover.severe&&h.big&&h.bs*.3>5000000)issues.push('중증 비급여 입원의 연간 자기부담 상한(500만원) 확인이 필요합니다.');
+  if(g==='g4'&&h.g*.2>2000000)issues.push('4세대 급여 입원 자기부담 연간 상한(200만원)은 계산하지 않습니다. 연간 누적 내역을 약관과 함께 확인해야 합니다.');
   if((g==='g5'&&s.cover.mild&&h.big&&h.b*.5>10000000)||total>50000000)issues.push('연간 보상한도를 넘을 수 있어 누적 보상액 확인이 필요합니다.');
   pending=issues.length>0;
   const parts=[['out','통원',out],...(g!=='g2'&&g!=='g5'?[['three','비급여 3종',th]]:[]),['in','입원',ip.pay]];
@@ -511,18 +542,24 @@ function compute(){
   $('#mTotal').textContent=pending?'입력 확인 필요':fmt(total)+'원';
 }
 
+function annualCalcHtml(a){
+  if(!a||a.base<=0)return '';
+  return `<div class="ln annual-line"><span>연간 자기부담 상한 ${fmt(a.limit)}원 · 앞선 누적 ${fmt(a.prior)}원</span><span class="num">남은 한도 ${fmt(a.remaining)}원</span></div><div class="ln"><span>이번 입원 자기부담 (상한 적용)</span><span class="num">${detailMoney(a.self)}</span></div><div class="ln detail-benefit"><span>상한 적용으로 보험금 추가</span><span class="num">+${detailMoney(a.extra)}</span></div>`;
+}
 function inCalc5(h,ip){
   return `<div class="ln"><span>급여 ${fmt(h.g)} × 80%</span><span class="num">${fmt(ip.gp)}</span></div>
-    ${h.bs?`<div class="ln"><span>중증 비급여 ${fmt(h.bs)} × ${S().cover.severe?'70%':'0% (특약 미선택)'}</span><span class="num">${fmt(ip.sp)}</span></div>`:''}
+    ${h.bs?`<div class="ln"><span>중증 비급여 ${fmt(h.bs)} × ${!S().cover.severe?'0% (특약 미선택)':ip.pending?'산정특례 확인 필요':'70%'+(ip.annual?' (상한 전)':'')}</span><span class="num">${ip.pending?'계산 대기':fmt(S().cover.severe?h.bs*.7:0)}</span></div>`:''}
     ${h.b?`<div class="ln"><span>비중증 비급여 ${fmt(h.b)} × ${S().cover.mild?'50%':'0% (특약 미선택)'}${ip.mildCapped?' · 회당 300만원 한도':''}</span><span class="num">${fmt(ip.mp)}</span></div>`:''}
     ${h.room>0?(h.days>0?`<div class="ln"><span>상급병실 ${fmt(h.room)} × 50% ÷ ${h.days}일 = 하루 ${fmt(ip.perDay)}${ip.perDay>=100000?' (하루 10만원 한도)':''}</span><span class="num">${fmt(ip.room)}</span></div>`
       :`<div class="ln" style="color:var(--deduct)"><span>입원일수를 넣어야 상급병실료가 계산됩니다</span><span class="num">0</span></div>`):''}
-    <div class="ln tot"><span>입원 보험금</span><span class="num">${fmt(ip.pay)}원</span></div>`;
+    ${annualCalcHtml(ip.annual)}
+    <div class="ln tot"><span>입원 보험금</span><span class="num">${ip.pending?'입력 확인 필요':fmt(ip.pay)+'원'}</span></div>`;
 }
 
 function rulesHtml(){
   const g=state.gen;
-  if(g==='g5') return `<ul><li>급여 통원은 영수증의 급여 본인부담금 ÷ (급여 본인부담금 + 공단부담금)으로 실제 본인부담률을 구하고, 그 비율·20%·최소공제(1만/2만원) 중 가장 큰 공제액을 적용합니다.</li><li>중증 비급여는 해당 산정특례 질환 진료분이며 가입한 특약만 계산합니다. 기본 공제는 입원 30%, 통원은 30%와 3만원 중 큰 금액입니다.</li><li>비중증 비급여는 입원 50%, 통원은 50%와 5만원 중 큰 금액을 공제합니다. 통원 일당 20만원, 병·의원 입원 회당 300만원 한도를 적용합니다. 종합·상급종합병원 입원은 회당 300만원 한도를 적용하지 않습니다.</li><li>급여·중증 비급여 통원은 각각 회당 20만원 한도를 적용합니다.</li><li>연간 보상한도(급여·중증 각 5천만원, 비중증 1천만원), 누적 자기부담 상한(급여 입원 200만원·상급/종합병원 중증 입원 500만원), 과거 청구 내역·횟수는 반영하지 않습니다.</li><li>별도 3종 비급여(도수·주사·MRI 등)와 상급병실료 차액은 약관별 별도 계산이 필요해 지원하지 않습니다. 비중증에서 제외되는 치료도 중증 특약에서는 보장될 수 있으므로 일괄 미보장으로 판단하지 마세요.</li></ul>`;
+  if(g==='g5') return `<ul><li>급여 통원은 영수증의 급여 본인부담금 ÷ (급여 본인부담금 + 공단부담금)으로 실제 본인부담률을 구하고, 그 비율·20%·최소공제(1만/2만원) 중 가장 큰 공제액을 적용합니다.</li><li>중증 비급여는 해당 산정특례 질환 진료분이며 가입한 특약만 계산합니다. 기본 공제는 입원 30%, 통원은 30%와 3만원 중 큰 금액입니다.</li><li>비중증 비급여는 입원 50%, 통원은 50%와 5만원 중 큰 금액을 공제합니다. 통원 일당 20만원, 병·의원 입원 회당 300만원 한도를 적용합니다. 종합·상급종합병원 입원은 회당 300만원 한도를 적용하지 않습니다.</li><li>급여·중증 비급여 통원은 각각 회당 20만원 한도를 적용합니다.</li><li>중증 특약에 가입하고 산정특례 대상 질환·관련 합병증으로 종합·상급종합병원에 입원한 경우, 중증 비급여 자기부담금에 연간 500만원 상한을 적용합니다. 입력한 앞선 누적액을 뺀 남은 한도까지만 이번 자기부담금으로 공제합니다. 급여·비중증·통원·별도 3종·상급병실 차액에는 이 상한을 적용하지 않습니다.</li><li>급여 입원은 20% 자기부담을 적용하며 200만원 상한을 적용하지 않습니다. 연간 보상한도(급여·중증 각 5천만원, 비중증 1천만원), 기지급 보험금·횟수는 반영하지 않습니다.</li><li>별도 3종 비급여(도수·주사·MRI 등)와 상급병실료 차액은 약관별 별도 계산이 필요해 지원하지 않습니다. 비중증에서 제외되는 치료도 중증 특약에서는 보장될 수 있으므로 일괄 미보장으로 판단하지 마세요.</li></ul>`;
+  const annual23='<li>기본 입원의 급여·비급여 자기부담금 합계에 연간 200만원 상한을 적용합니다. 앞선 누적 자기부담금을 빼고 남은 한도까지만 이번에 공제합니다. 통원·상급병실료 차액·별도 3종 특약은 상한에서 제외합니다. 계약일·매년 계약해당일부터 1년이며 같은 보장종목의 누적액만 입력하세요.</li>';
   const room='<li>상급병실료 차액은 50%를 보상하고, 입원 기간 하루 평균 10만원을 넘지 않습니다.</li><li>입원은 비율로만 공제하고 정액 공제는 없습니다.</li>';
   if(g==='g4') return `<ul><li>급여와 비급여를 따로 공제합니다. 급여는 1만원(종합·상급종합병원 2만원)과 20% 중 큰 금액, 비급여는 3만원과 30% 중 큰 금액입니다.</li>
     <li>통원 회당 한도는 급여 20만원, 비급여 20만원을 각각 적용합니다. 같은 날 외래와 약국 금액은 합쳐서 1회로 봅니다.</li>
@@ -530,11 +567,11 @@ function rulesHtml(){
   if(g==='g3') return `<ul><li>통원은 급여와 비급여를 합친 뒤 한 번 공제합니다. 병원 종류별 정액(의원 1만, 병원·종합병원 1.5만, 상급종합병원 2만원)과 정률 중 큰 금액입니다.</li>
     <li>정률은 표준형이 전체의 20%, 선택형Ⅱ가 급여 10% + 비급여 20%입니다.</li>
     <li>약국(처방조제)은 8천원과 정률 중 큰 금액을 공제합니다. 외래와 약국은 각각 따로 계산합니다.</li>
-    <li>비급여 3종은 회당 2만원과 30% 중 큰 금액을 공제합니다.</li>${room}</ul>`;
+    <li>비급여 3종은 회당 2만원과 30% 중 큰 금액을 공제합니다.</li>${annual23}${room}</ul>`;
   return `<ul><li>90% 보상형(자기부담 10%)은 통원에서 정액만 공제합니다. 의원 1만, 병원·종합병원 1.5만, 상급종합병원 2만원, 약국 8천원입니다.</li>
     <li>2013년 1월 이후 표준형과 2015년 9월 이후 선택형Ⅱ는 정액과 정률 중 큰 금액을 공제합니다.</li>
     <li>2세대는 비급여 3종이 따로 나뉘지 않아 일반 비급여에 포함해 넣습니다.</li>
-    <li>같은 2세대라도 상품마다 세부 기준이 다를 수 있으니 약관으로 확인하세요.</li>${room}</ul>`;
+    <li>같은 2세대라도 상품마다 세부 기준이 다를 수 있으니 약관으로 확인하세요.</li>${annual23}${room}</ul>`;
 }
 
 function renderAll(){ renderChoices(); renderInputs(); compute(); $('#rules').innerHTML=rulesHtml(); }
@@ -548,7 +585,7 @@ document.addEventListener('click',e=>{
     renderInputs(); compute(); const n=s.visits.length-1; document.getElementById(add.dataset.add==='rx'?`v${n}-g`:`v${n}-grade`)?.focus(); return; }
   const del=e.target.closest('[data-del]'); if(del){ const s=S(); s.visits.splice(+del.dataset.del,1);
     if(!s.visits.length) s.visits.push({kind:'out',grade:GENS[state.gen].grades[0].v,g:0,b:0}); renderInputs(); compute(); return; }
-  if(e.target.id==='fillEx'){ const ex=JSON.parse(JSON.stringify(EXAMPLES[state.gen])); Object.assign(S(),ex,{actual:{}}); renderInputs(); compute(); return; }
+  if(e.target.id==='fillEx'){ const ex=JSON.parse(JSON.stringify(EXAMPLES[state.gen])); Object.assign(S(),ex,{inp:{...blank(state.gen).inp,...ex.inp},actual:{}}); renderInputs(); compute(); return; }
   if(e.target.id==='clearAll'){ const t=S().type, c=S().caps; state[state.gen]=Object.assign(blank(state.gen),{type:t,caps:c}); renderInputs(); compute(); return; }
 });
 document.addEventListener('input',e=>{
