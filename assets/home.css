@@ -312,9 +312,9 @@ h1, .business-copy h2, .tools-heading h2 { font-size: var(--title-size); line-he
 .ars-guide-copy { display: inline-flex; align-items: center; gap: 6px; flex: none; padding: 8px 10px; border: 1px solid #333; border-radius: 4px; color: #fff; background: #222; font-size: 11px; }
 .ars-guide-copy[hidden] { display: none; }
 .ars-guide-copy:hover, .ars-guide-copy:focus-visible { background: var(--accent-strong); border-color: var(--accent-strong); }
-.digital-ars { width: min(960px, calc(100vw - 32px)); }
-.digital-guide { display: grid; grid-template-columns: minmax(180px, 260px) minmax(0, 1fr); align-items: start; gap: 26px; }
-.digital-guide .ars-screen { position: sticky; top: 100px; margin: 0; padding: 10px; }
+.digital-ars { width: min(1040px, calc(100vw - 32px)); }
+.digital-guide { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); align-items: start; gap: 24px; }
+.digital-guide .ars-screen { position: static; width: 100%; margin: 0; padding: 0; border: 0; }
 .ars-screen-map { position: relative; }
 .digital-guide .ars-screen img { width: 100%; max-width: none; padding: 0; }
 .ars-screen-markers { position: absolute; inset: 0; pointer-events: none; }
@@ -325,4 +325,4 @@ h1, .business-copy h2, .tools-heading h2 { font-size: var(--title-size); line-he
 .digital-services .ars-menu-item > summary, .digital-services .ars-menu-row { min-height: 49px; }
 @media (min-width: 761px) and (max-height: 780px) { .tool > .tool-symbol { width: 28px; height: 28px; } }
 @media (max-width: 760px) { .voice-ars[open] { height: 92svh; } .ars-selection { padding: 12px 17px 16px; } .digital-ars { width: calc(100vw - 20px); } }
-@media (max-width: 620px) { .digital-guide { grid-template-columns: minmax(0, 1fr); gap: 24px; } .digital-guide .ars-screen { position: static; width: min(240px, 100%); justify-self: center; } .ars-selection-heading { flex-wrap: wrap; gap: 7px; } .ars-selection p { font-size: 11px; } }
+@media (max-width: 620px) { .digital-guide { grid-template-columns: minmax(0, 1fr); gap: 24px; } .ars-selection-heading { flex-wrap: wrap; gap: 7px; } .ars-selection p { font-size: 11px; } }
