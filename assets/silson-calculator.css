@@ -1,12 +1,12 @@
 @font-face{font-family:"Workroom Sans";src:url("fonts/WorkroomSans.woff2?v=20261016-silson") format("woff2");font-weight:100 900;font-display:swap}
 :root,:root:not([data-theme]),:root[data-theme]{color-scheme:light;--bg:#fff;--surface:#fff;--line:#e7e7e7;--fg:#171717;--muted:#767676;--accent:#cf2c18;--accent-soft:#fff7f5;--in-bg:#fafafa;--in-line:#e7e7e7;--in-focus:#555;--deduct:#b83724;--ok:#39664f;--warn:#916d16;--font-body:"Workroom Sans","Malgun Gothic",system-ui,sans-serif;--font-num:"Workroom Sans","Malgun Gothic",sans-serif;--r:3px}
 body{padding:0 0 96px;background:var(--bg);font-size:14px}
-.calculator-header{height:58px;display:flex;align-items:center;gap:15px;padding:0 max(22px,calc((100vw - 1120px)/2));border-bottom:1px solid var(--line);background:#fff;font-size:12px}
+.calculator-header{height:58px;display:flex;align-items:center;gap:15px;padding:0 max(22px,calc((100vw - 1280px)/2));border-bottom:1px solid var(--line);background:#fff;font-size:12px}
 .home-link{display:grid;place-items:center;width:32px;height:34px;flex:none;color:var(--fg)}
 .home-link svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:2.2}
 .home-link:hover{color:var(--accent)}
 .calculator-label{padding-left:15px;border-left:1px solid var(--line);font-size:12px;color:#626262}.calculator-ci{margin-left:auto;display:block;width:98px;height:27px;overflow:hidden;flex:none}.calculator-ci img{display:block;height:27px;width:auto;max-width:none}.title-dot{color:#ef3219}
-.wrap{padding:32px 22px 0;max-width:1164px;gap:18px}
+.wrap{padding:32px 22px 0;max-width:1324px;gap:18px}
 .eyebrow{font-size:10px;letter-spacing:1.5px;color:var(--muted);margin:0 0 8px}
 h1{font-size:32px;font-weight:650;letter-spacing:-1px}.sub{font-size:13px;margin-top:7px}
 .scope-note{font-size:11px;line-height:1.8;background:#fafafa;border:1px solid var(--line);border-left:2px solid #333;padding:12px 14px;margin:18px 0 0;color:#666;max-width:none}
@@ -18,6 +18,13 @@ h1{font-size:32px;font-weight:650;letter-spacing:-1px}.sub{font-size:13px;margin
 .coverage-options{display:flex;gap:12px 24px;flex-wrap:wrap}.coverage-options .sev input{accent-color:#333}
 .result-sticky{position:sticky;top:16px}.summary{position:static}.big{font-size:27px;font-weight:650}.sumrows{font-size:13px}.result-note{font-size:11px;line-height:1.9;color:var(--muted);margin:12px 2px}.calcbox{font-size:11px;line-height:1.8}.calcbox .ln{flex-wrap:wrap}.calcbox .ln>span:last-child{margin-left:auto}.foot{max-width:none;font-size:11px;line-height:1.9}.rules{font-size:12px;line-height:1.9}.rulesbox>summary{font-size:12px}.sources a{color:var(--muted);text-underline-offset:3px}.sources ul{padding-left:18px;font-size:11px;line-height:2}.mbar{box-shadow:0 -3px 15px #00000005}.mbar .big{font-size:21px}
 .calculation-issues{padding-left:15px;margin:7px 0 0;font-size:11px;line-height:1.8;color:var(--deduct)}
+#inFields>div{display:flex;flex-direction:column;min-width:0}
+#inFields>div>.lbl{display:flex;flex-direction:column;gap:4px;margin-bottom:8px;line-height:1.5}
+#inFields>div>.lbl small{font-size:10px;font-weight:400;line-height:1.65;color:var(--muted)}
+#inFields>div>.in{margin-top:auto;flex:none}
+#inFields>div>.in input{height:42px;min-height:42px;max-height:42px}
+@media(min-width:621px){#inFields:has(#in-bs){grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:620px){#inFields{grid-template-columns:minmax(0,1fr)}}
 /* 입력액에서 보험금까지, 실제 계산 결과에 연결된 상세 내역 */
 .result-head{text-align:center;padding:4px 0 8px}.result-head .big{color:var(--accent);font-size:32px;overflow-wrap:anywhere}.result-head .calculation-issues{text-align:left}
 .result-overview{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;padding:14px;background:var(--in-bg);border-radius:10px}.result-overview>div{min-width:0}.result-overview span{display:block;font-size:11px;color:#626262}.result-overview b{display:block;margin-top:3px;font-size:13px;font-weight:600;overflow-wrap:anywhere}
