@@ -1,7 +1,7 @@
 /* Pretendard glyphs, locally subset and renamed under the SIL Open Font License. */
 @font-face {
   font-family: "Workroom Sans";
-  src: url("fonts/WorkroomSans.woff2") format("woff2");
+  src: url("fonts/WorkroomSans.woff2?v=20261025-calculators") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
